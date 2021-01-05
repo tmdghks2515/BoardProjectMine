@@ -6,6 +6,9 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<!-- 폰트 Black Han Sans  	font-family: 'Black Han Sans', 'sans-serif';-->
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
 <script>
 	$(function(){
 		$("#main").mouseenter(function(){
@@ -131,7 +134,7 @@
 <body>
 	<nav>
 		<ul id="main">
-			<li><a href="#">메인메뉴1</a></li>
+			<li><a href="#">게시판</a></li>
 			<li><a href="#">메인메뉴2</a></li>
 			<li><a href="#">메인메뉴3</a></li>
 			<li><a href="#">메인메뉴4</a></li>
@@ -159,7 +162,13 @@
 
 		<div id="sub">
 			<ul class="sub">
-				<li><a href="#">서브메뉴</a></li>
+				<%
+					if(session.getAttribute("login") != null && (boolean)session.getAttribute("login") == true){
+				%>
+				<li><a href="<%=request.getContextPath()%>/board/write_board.jsp">게시글 작성</a></li>
+				<%}else{%>
+				<li><a href="<%=request.getContextPath()%>/member/login.jsp" onclick="alert('게시글을 작성하기위해 로그인화면 으로 이동합니다.')">게시글 작성</a></li>
+				<%} %>
 				<li><a href="#">서브메뉴</a></li>
 				<li><a href="#">서브메뉴</a></li>
 				<li><a href="#">서브메뉴</a></li>
