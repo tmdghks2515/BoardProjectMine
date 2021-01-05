@@ -2,5 +2,5 @@
     pageEncoding="UTF-8"%>
 <%
 	session.invalidate();
-	response.sendRedirect("main.jsp");
+	response.sendRedirect(request.getContextPath()+"/index.jsp");
 %>

@@ -143,17 +143,17 @@
 
 		<div id="user">
 			<div>
-				<small>임승환 님이 로그인 했습니다</small><br>
-				<small><a href="#">정보수정</a> | <a href="logout_process.jsp">로그아웃</a></small>
+				<small><%=session.getAttribute("name") %> 님이 로그인 했습니다</small><br>
+				<small><a href="#">정보수정</a> | <a href="<%=request.getContextPath() %>/member/process/logout_process.jsp">로그아웃</a></small>
 			</div>
-			<img src="resource/img/dog.jpg" href="#">
+			<img src="resource/img/dog.jpg">
 		</div>
 		
 <%}else{%>
 	
 	<div id="login">
-		<small><a href="login.jsp">로그인</a></small> |
-		<small><a href="register.jsp">회원가입</a></small>
+		<small><a href="<%=request.getContextPath() %>/member/login.jsp">로그인</a></small> |
+		<small><a href="<%=request.getContextPath() %>/member/register.jsp">회원가입</a></small>
 	</div>
 <%}%>
 

@@ -19,6 +19,6 @@
 		session.setAttribute("id", vo.getId());
 		session.setAttribute("name", vo.getName());
 		session.setAttribute("grade", vo.getGrade());
-		response.sendRedirect("main.jsp");
+		response.sendRedirect(request.getContextPath()+"/index.jsp");
 	}
 %>

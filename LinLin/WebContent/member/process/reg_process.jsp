@@ -9,6 +9,6 @@
 	int age = Integer.parseInt(request.getParameter("age"));
 	
 	MemberService.getInstance().insert(id, pass, name, age);
-	response.sendRedirect("login.jsp");
+	response.sendRedirect(request.getContextPath()+"/member/login.jsp");
 	
 %>
