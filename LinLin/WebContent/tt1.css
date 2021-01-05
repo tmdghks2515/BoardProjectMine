@@ -1,0 +1,155 @@
+@charset "UTF-8";
+*{
+	margin:0;
+	padding:0;
+	box-sizing: border-box;
+}
+/*메인메뉴 *************************************/
+	nav{
+		height:40px;
+		background-color: #007fff;
+	}
+	ul,li{
+		margin:0;
+		padding:0;
+		list-style-type: none;
+	}
+	#main{
+		width:70%;
+		float:left;
+	}
+	#main li{
+		width:25%;
+		float:left;
+	}
+	#main a:link  , #main a:visited{
+		display: block;
+		text-decoration: none;
+		text-align: center;
+		padding:10px 0;
+		color:white;
+		transition: all 0.5s;
+	}
+	#main a:hover{
+		background-color: #00b2fe;
+	}
+/*유저정보 *************************************/
+#user{
+	width:30%;
+	float:left;
+	color:white;
+	padding-left:50px;
+}
+#user img{
+	width:40px;
+	height:40px;
+	border-radius: 100px;
+	float:left;
+}
+#user div{
+	float:left;
+}
+#user a:link, #user a:visited{
+	color:white;
+}
+/*서브메뉴 **************************************/
+#sub{
+	clear:both;
+	background-color: #007cb2;
+	height:159.94px;
+	display: none;
+	position:relative;
+	opacity: 0.5;
+	z-index:2;
+}
+.sub{
+	width:17.5%;
+	float:left;
+}
+.sub a:link , .sub a:visited{
+	display: block;
+	text-decoration: none;
+	color:white;
+	transition: all 0.3s;
+	padding:6px 0;
+	text-align: center;
+}
+.sub a:hover{
+	background-color: #bfecff;
+	color:black;
+}
+/*h1  **************************************/
+h1{
+	text-align: center;
+	font-family: 'Black Han Sans', 'sans-serif';
+}
+h1 a:link , h1 a:visited{
+	text-decoration: none;
+	color:#007fff;
+}
+/*검색창  **************************************/
+.container{
+	width:100%;
+	position:absolute;
+}
+#search{
+	width:600px;
+	margin:30px auto;
+	border:2px solid #80d9ff;
+	height:44px;
+}
+#search form{
+	float:left;
+	width:90%
+}
+#search input{
+	outline:none;
+	border:none;
+	width:400px;
+	height:40px;
+	font-size: 14px;
+}
+#search span, #search input , #search div{
+	padding:8px 10px;
+}
+#search a:link, #search a:visited{
+	display: block;
+	width:10%;
+	text-decoration: none;
+	color:white;
+	background-color: #80d9ff;
+	padding:5px 5px;
+	float:left;
+	text-align: center;
+	padding:10px;
+	transition:all 0.3s;
+}
+#search a:hover{
+	background-color: #bfecff;
+	color:black;
+}
+/*회원가입  **********************************/
+#reg{
+	width:35%;
+	min-width:400px;
+	margin:30px auto;
+	border:1px solid #bfecff;
+	padding:10px;
+}
+#reg h4{
+	margin-bottom:20px;
+}
+#reg *{
+	margin:5px;
+}
+#reg label{
+	width: 100px;
+}
+.short{
+	width:60px !important;
+}
+#host2{
+	margin:0;
+	padding:0;
+	display: none;
+}
