@@ -149,7 +149,7 @@
 				<small><%=session.getAttribute("name") %> 님이 로그인 했습니다</small><br>
 				<small><a href="#">정보수정</a> | <a href="<%=request.getContextPath() %>/member/process/logout_process.jsp">로그아웃</a></small>
 			</div>
-			<img src="resource/img/dog.jpg">
+			<img src="<%=request.getContextPath() %>/resource/img/dog.jpg">
 		</div>
 		
 <%}else{%>
@@ -162,13 +162,7 @@
 
 		<div id="sub">
 			<ul class="sub">
-				<%
-					if(session.getAttribute("login") != null && (boolean)session.getAttribute("login") == true){
-				%>
 				<li><a href="<%=request.getContextPath()%>/board/write_board.jsp">게시글 작성</a></li>
-				<%}else{%>
-				<li><a href="<%=request.getContextPath()%>/member/login.jsp" onclick="alert('게시글을 작성하기위해 로그인화면 으로 이동합니다.')">게시글 작성</a></li>
-				<%} %>
 				<li><a href="#">서브메뉴</a></li>
 				<li><a href="#">서브메뉴</a></li>
 				<li><a href="#">서브메뉴</a></li>
