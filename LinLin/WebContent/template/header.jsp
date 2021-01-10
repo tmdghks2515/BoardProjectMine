@@ -134,7 +134,7 @@
 <body>
 	<nav>
 		<ul id="main">
-			<li><a href="#">게시판</a></li>
+			<li><a href="<%=request.getContextPath()%>/board/board_list.jsp">게시판</a></li>
 			<li><a href="#">메인메뉴2</a></li>
 			<li><a href="#">메인메뉴3</a></li>
 			<li><a href="#">메인메뉴4</a></li>

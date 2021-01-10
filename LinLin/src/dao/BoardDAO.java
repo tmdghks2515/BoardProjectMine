@@ -182,6 +182,27 @@ public class BoardDAO {
 			manager.close(pstmt, null);
 		}
 	}
+
+	public ArrayList<BoardDTO> selectAllBoards() {
+		ArrayList<BoardDTO> li = new ArrayList<BoardDTO>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "select * from board order by bno desc";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				li.add(new BoardDTO(rs.getInt(1), rs.getString(2), rs.getInt(3),
+						rs.getString(4),rs.getString(5), rs.getInt(6), rs.getInt(7), 
+						rs.getString(8)));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			manager.close(pstmt, rs);
+		}
+		return li;
+	}
 	
 
 
