@@ -1,7 +1,10 @@
 package survice;
 
 
+import java.util.ArrayList;
+
 import DTO.BoardDTO;
+import DTO.CommentDTO;
 import dao.BoardDAO;
 
 public class BoardService {
@@ -22,7 +25,17 @@ public class BoardService {
 		BoardDTO dto = new BoardDTO(bNo, writer, content, title);
 		BoardDAO.getInstance().insertBoard2(dto);
 		return bNo;
-		
 	}
 	
+	public BoardDTO selectBoard(int bNo) throws Exception {
+		return BoardDAO.getInstance().selectBoard(bNo);
+	}
+	
+	public ArrayList<CommentDTO> selectAllComment(int bNo){
+		return BoardDAO.getInstance().selectAllComment(bNo);
+	}
+	
+	public void insertComment(CommentDTO cdto) throws Exception {
+		BoardDAO.getInstance().insertComment(cdto);
+	}
 }

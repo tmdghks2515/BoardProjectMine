@@ -68,7 +68,7 @@
 				method:'get',
 				data:{"writer":writer,"title":title,"content":content},
 				success:function(d){
-					location="board_view.jsp?bNo="d;
+					location.href = "board_view.jsp?bNo="+d;				
 				},
 				error:function(d){
 					alert(d);

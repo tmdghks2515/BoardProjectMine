@@ -8,5 +8,6 @@
 	String title = request.getParameter("title");
 	String content = request.getParameter("content");
 	int bNo = BoardService.getInstance().insertBoard(writer,title,content);
-	out.write(bNo);
+	String d = String.valueOf(bNo);
+	out.write(d);
 %>
