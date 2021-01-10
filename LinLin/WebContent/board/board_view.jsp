@@ -83,6 +83,8 @@
 	#content{
 		padding:50px;
 		height:500px;
+		border:1px solid #007fff;
+		box-shadow:0 0 2px #007fff;
 	}
 	/*댓글작성******************************/
 	#cmt_content{
@@ -124,6 +126,22 @@
 		border-left:3px solid #007fff;
 		margin:20px 0;
 		padding-left:15px;
+	}
+	/*좋아요싫어요******************************************************/
+	#btns{
+		text-align: center;
+	}
+	#btns span{
+		display: inline-block;
+		width:64px;
+		text-align: center;
+		margin:20px; 
+	}
+	#btns img{
+		border-radius: 50px;
+	}
+	#btns img:hover{
+		box-shadow: 0 0 3px black;
 	}
 </style>
 <script>
@@ -180,6 +198,10 @@
 				<hr>
 				<div id="content">
 					<%=dto.getContent() %>
+				</div>
+				<div id="btns">
+					<span><a href="process/like_hate_process.jsp?flag=1&id=<%=id %>&bNo=<%=bNo%>"><img src="<%=request.getContextPath()%>/resource/img/like.png"></a>좋아요</span>
+					<span><a href="process/like_hate_process.jsp?flag=-1&id=<%=id %>&bNo=<%=bNo%>"><img src="<%=request.getContextPath()%>/resource/img/hate.png"></a>싫어요</span>
 				</div>
 				<hr>
 			</div>

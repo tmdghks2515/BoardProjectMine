@@ -125,4 +125,64 @@ public class BoardDAO {
 			manager.close(pstmt, null);
 		}
 	}
+
+	public boolean boardLikeCheck(int bNo, String id) {
+		boolean result = false;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "select * from blike_bhate where bno = ? and id like ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bNo);
+			pstmt.setString(2, id);
+			rs = pstmt.executeQuery();
+			if(rs.next())
+				result = true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	public void insertBoardLike(int bNo, String id, int flag) throws Exception {
+		PreparedStatement pstmt = null;
+		String sql = "insert into blike_bhate values(?,?,?)";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bNo);
+			pstmt.setString(2, id);
+			pstmt.setInt(3, flag);
+			int count = pstmt.executeUpdate();
+			if(count != 1)
+				throw new Exception("좋아요 누르기 실패");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			manager.close(pstmt, null);
+		}
+		
+				
+	}
+
+	public void boardLike(int bNo, int flag) throws Exception {
+		String sql = "";
+		if(flag == 1)
+			sql = "update board set blike = blike+1 where bno ="+bNo;
+		else if(flag == -1)
+			sql = "update board set bhate = bhate+1 where bno ="+bNo;
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int count = pstmt.executeUpdate();
+			if(count != 1)
+				throw new Exception("좋아요 증가 실패");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			manager.close(pstmt, null);
+		}
+	}
+	
+
+
 }

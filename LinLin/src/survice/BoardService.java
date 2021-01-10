@@ -38,4 +38,13 @@ public class BoardService {
 	public void insertComment(CommentDTO cdto) throws Exception {
 		BoardDAO.getInstance().insertComment(cdto);
 	}
+	
+	public boolean boardLikeCheck(int bNo, String id) {
+		return BoardDAO.getInstance().boardLikeCheck(bNo,id);
+	}
+	
+	public void boardLike(int bNo,String id,int flag) throws Exception {
+		BoardDAO.getInstance().insertBoardLike(bNo,id,flag);
+		BoardDAO.getInstance().boardLike(bNo,flag);
+	}
 }
