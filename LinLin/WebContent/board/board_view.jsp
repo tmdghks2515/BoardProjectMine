@@ -156,7 +156,7 @@
 				if(id.equals("방문객")){
 			%>
 				alert("댓글 작성을 위해 로그인화면 으로 이동합니다.");
-				location.href="<%=request.getContextPath()%>/member/login.jsp";
+				location.href="<%=request.getContextPath()%>/member/login.jsp?url=board/board_view.jsp&bNo=<%=bNo%>";
 			<%
 				}else{
 			%>

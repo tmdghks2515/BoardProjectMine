@@ -19,6 +19,10 @@
 		session.setAttribute("id", vo.getId());
 		session.setAttribute("name", vo.getName());
 		session.setAttribute("grade", vo.getGrade());
-		response.sendRedirect(request.getContextPath()+"/index.jsp");
+		if(request.getParameter("url")==null)
+			response.sendRedirect(request.getContextPath()+"/index.jsp");
+		else
+			response.sendRedirect(request.getContextPath()+"/"+
+				request.getParameter("url")+"?bNo="+request.getParameter("bNo"));
 	}
 %>

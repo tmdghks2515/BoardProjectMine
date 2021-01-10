@@ -54,6 +54,7 @@
 </style>
 <script>
 	$(function(){
+		alert("<%=request.getRequestURI()%>")		
 		$("textarea").keydown(function(){
 			$(this).next().children().text($(this).val().length+"/500");
 		})
@@ -114,7 +115,7 @@
 %>
 	<script>
 		alert("게시글 작성을 위해 로그인 화면 으로 이동하니다.");
-		location="<%=request.getContextPath()%>/member/login.jsp";
+		location="<%=request.getContextPath()%>/member/login.jsp?url=board/write_board.jsp";
 	</script>	
 <%
 	}

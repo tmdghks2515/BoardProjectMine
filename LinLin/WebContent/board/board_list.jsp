@@ -9,6 +9,7 @@
 <meta charset="UTF-8">
 <title>게시판 목록</title>
 </head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style>
 	#container{
 		width:100%;
@@ -70,6 +71,21 @@
 		color:white;
 	}
 </style>
+<%
+	ArrayList<BoardDTO> li = BoardService.getInstance().selectAllBoards();
+	int p = 0;
+	if(request.getParameter("p") != null)
+		p = Integer.parseInt(request.getParameter("p"));
+	if(p < 0)
+		p = 0;
+	if(p > (int)Math.ceil(li.size()/(double)20)-1)
+		p = (int)Math.ceil(li.size()/(double)20)-1;
+%>
+<script>
+	$(function(){
+		$(".pagination li").eq(<%=p %>).addClass("active");
+	})
+</script>
 <body>
 	<jsp:include page="/template/header.jsp"></jsp:include>
 	<jsp:include page="/template/board_h.jsp"></jsp:include>
@@ -81,17 +97,16 @@
 				<span>조회</span><span>좋아요</span><span>싫어요</span>
 			</p>
 			<%
-				ArrayList<BoardDTO> li = BoardService.getInstance().selectAllBoards();
-				for(BoardDTO bdto : li){
+				for(int i=p*20;i<20+p*20 && i<li.size();i++){
 			%>
 				<p>
-					<span><%=bdto.getbNo() %></span>
-					<span><a href="board_view.jsp?bNo=<%=bdto.getbNo()%>"><%=bdto.getTitle() %></a></span>
-					<span><%=bdto.getWriter() %></span>
-					<span><%=bdto.getbDate() %></span>
-					<span><%= bdto.getbCount()%></span>
-					<span><%=bdto.getbLike() %></span>
-					<span><%=bdto.getbHate() %></span>
+					<span><%=li.get(i).getbNo() %></span>
+					<span><a href="board_view.jsp?bNo=<%=li.get(i).getbNo()%>"><%=li.get(i).getTitle() %></a></span>
+					<span><%=li.get(i).getWriter() %></span>
+					<span><%=li.get(i).getbDate() %></span>
+					<span><%= li.get(i).getbCount()%></span>
+					<span><%=li.get(i).getbLike() %></span>
+					<span><%=li.get(i).getbHate() %></span>
 				</p>
 			
 			<%
@@ -101,21 +116,23 @@
 			<div id="board_f" class="row">
 				<div class="col-xs-4">
 					<ul class="pager">
-						<li class="previous text-right"><a href="#">&lt;이전</a></li>
+						<li class="previous text-right"><a href="<%=request.getRequestURL()%>?p=<%=p-1%>">&lt;이전</a></li>
 					</ul>
 				</div>
 				<div class="col-xs-4 text-center">
 					<ul class="pagination">
-						<li><a href="#">1</a></li>
-						<li><a href="#">2</a></li>
-						<li><a href="#">3</a></li>
-						<li><a href="#">4</a></li>
-						<li><a href="#">5</a></li>
+					<%
+						for(int i=0;i<Math.ceil(li.size()/(double)20);i++){
+					%>
+						<li><a href="<%=request.getRequestURL()%>?p=<%=i %>"><%=i+1 %></a></li>
+					<%
+						}
+					%>
 					</ul>
 				</div>
 				<div class="col-xs-4 text-left">
 					<ul class="pager">
-						<li class="next"><a href="#">다음&gt;</a></li>
+						<li class="next"><a href="<%=request.getRequestURL()%>?p=<%=p+1%>">다음&gt;</a></li>
 					</ul>
 				</div>
 			</div>
