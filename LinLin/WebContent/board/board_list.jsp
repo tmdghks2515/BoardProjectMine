@@ -1,3 +1,4 @@
+<%@page import="vo.PagingVO"%>
 <%@page import="service.BoardService"%>
 <%@page import="dto.BoardDTO"%>
 <%@page import="java.util.ArrayList"%>
@@ -72,18 +73,16 @@
 	}
 </style>
 <%
-	ArrayList<BoardDTO> li = BoardService.getInstance().selectAllBoards();
-	int p = 0;
+	int p = 1;
 	if(request.getParameter("p") != null)
 		p = Integer.parseInt(request.getParameter("p"));
-	if(p < 0)
-		p = 0;
-	if(p > (int)Math.ceil(li.size()/(double)20)-1)
-		p = (int)Math.ceil(li.size()/(double)20)-1;
+	PagingVO vo = new PagingVO(BoardService.getInstance().getBoardTotal() , p);
+	ArrayList<BoardDTO> li = BoardService.getInstance().selectBoards(
+			p , vo.getBoardPerPage());
 %>
 <script>
 	$(function(){
-		$(".pagination li").eq(<%=p %>).addClass("active");
+		$(".pagination li").eq(<%=(p-1) % vo.getPagePerGroup() %>).addClass("active");
 	})
 </script>
 <body>
@@ -97,16 +96,16 @@
 				<span>조회</span><span>좋아요</span><span>싫어요</span>
 			</p>
 			<%
-				for(int i=p*20;i<20+p*20 && i<li.size();i++){
+				for(BoardDTO bdto : li){
 			%>
 				<p>
-					<span><%=li.get(i).getbNo() %></span>
-					<span><a href="board_view.jsp?bNo=<%=li.get(i).getbNo()%>"><%=li.get(i).getTitle() %> [<%=BoardService.getInstance().selectAllComment(li.get(i).getbNo()).size() %>]</a></span>
-					<span><%=li.get(i).getWriter() %></span>
-					<span><%=li.get(i).getbDate() %></span>
-					<span><%= li.get(i).getbCount()%></span>
-					<span><%=li.get(i).getbLike() %></span>
-					<span><%=li.get(i).getbHate() %></span>
+					<span><%=bdto.getbNo() %></span>
+					<span><a href="board_view.jsp?bNo=<%=bdto.getbNo()%>"><%=bdto.getTitle() %> [<%=BoardService.getInstance().selectAllComment(bdto.getbNo()).size() %>]</a></span>
+					<span><%=bdto.getWriter() %></span>
+					<span><%=bdto.getbDate() %></span>
+					<span><%= bdto.getbCount()%></span>
+					<span><%=bdto.getbLike() %></span>
+					<span><%=bdto.getbHate() %></span>
 				</p>
 			
 			<%
@@ -116,15 +115,17 @@
 			<div id="board_f" class="row">
 				<div class="col-xs-4">
 					<ul class="pager">
-						<li class="previous text-right"><a href="<%=request.getRequestURL()%>?p=<%=p-1%>">&lt;이전</a></li>
+					<%if(!vo.isFirstGroup()){%>
+						<li class="previous"><a href="<%=request.getRequestURL()%>?p=<%=p-vo.getPagePerGroup()%>">&lt;이전</a></li>
+					<%}%>
 					</ul>
 				</div>
 				<div class="col-xs-4 text-center">
 					<ul class="pagination">
 					<%
-						for(int i=0;i<Math.ceil(li.size()/(double)20);i++){
+						for(int i=vo.getFirstPageOfGroup() ; i<=vo.getLastPageOfGroup() ; i++){
 					%>
-						<li><a href="<%=request.getRequestURL()%>?p=<%=i %>"><%=i+1 %></a></li>
+						<li><a href="<%=request.getRequestURL()%>?p=<%=i %>"><%=i %></a></li>
 					<%
 						}
 					%>
@@ -132,7 +133,9 @@
 				</div>
 				<div class="col-xs-4 text-left">
 					<ul class="pager">
-						<li class="next"><a href="<%=request.getRequestURL()%>?p=<%=p+1%>">다음&gt;</a></li>
+					<%if(!vo.isLastGroup()){%>
+						<li class="next"><a href="<%=request.getRequestURL()%>?p=<%=p+vo.getPagePerGroup()%>">다음&gt;</a></li>
+					<%}%>
 					</ul>
 				</div>
 			</div>

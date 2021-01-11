@@ -225,7 +225,7 @@
 				<%
 					if(id.equals("방문객")){
 				%>					
-					<a href="<%=request.getContextPath() %>/member/login.jsp">로그인</a>
+					<a href="<%=request.getContextPath() %>/member/login.jsp?url=<%=request.getRequestURL()%>&bNo=<%=bNo%>">로그인</a>
 					하고 댓글 작성하기
 				<%
 					}else{

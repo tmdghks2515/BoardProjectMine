@@ -183,18 +183,21 @@ public class BoardDAO {
 		}
 	}
 
-	public ArrayList<BoardDTO> selectAllBoards() {
+	public ArrayList<BoardDTO> selectBoards(int p, int n) {
 		ArrayList<BoardDTO> li = new ArrayList<BoardDTO>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "select * from board order by bno desc";
+		String sql = "select * from (select ceil(rownum/?) as page, board2.* from "
+				+ "(select rownum ,board.* from board order by bno desc)board2"
+				+ ") where page = "+p;
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, n);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				li.add(new BoardDTO(rs.getInt(1), rs.getString(2), rs.getInt(3),
-						rs.getString(4),rs.getString(5), rs.getInt(6), rs.getInt(7), 
-						rs.getString(8)));
+				li.add(new BoardDTO(rs.getInt(3), rs.getString(4), rs.getInt(5),
+						rs.getString(6),rs.getString(7), rs.getInt(8), rs.getInt(9), 
+						rs.getString(10)));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -220,6 +223,24 @@ public class BoardDAO {
 			manager.close(pstmt, null);
 		}
 		
+	}
+
+	public int getBoardTotal() {
+		int result = 0;
+		String sql = "select count(*) from board";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next())
+				result = rs.getInt(1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			manager.close(pstmt, rs);
+		}
+		return result;
 	}
 	
 

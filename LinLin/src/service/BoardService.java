@@ -31,8 +31,8 @@ public class BoardService {
 		return BoardDAO.getInstance().selectBoard(bNo);
 	}
 	
-	public ArrayList<BoardDTO> selectAllBoards(){
-		return BoardDAO.getInstance().selectAllBoards();
+	public ArrayList<BoardDTO> selectBoards(int p,int n){
+		return BoardDAO.getInstance().selectBoards(p,n);
 	}
 	
 	public ArrayList<CommentDTO> selectAllComment(int bNo){
@@ -54,5 +54,9 @@ public class BoardService {
 	
 	public void cLikeHate(int cNo,int index){
 		BoardDAO.getInstance().cLikeHate(cNo,index);
+	}
+	
+	public int getBoardTotal() {
+		return BoardDAO.getInstance().getBoardTotal();
 	}
 }
