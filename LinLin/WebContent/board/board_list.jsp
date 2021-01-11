@@ -77,8 +77,8 @@
 	if(request.getParameter("p") != null)
 		p = Integer.parseInt(request.getParameter("p"));
 	PagingVO vo = new PagingVO(BoardService.getInstance().getBoardTotal() , p);
-	ArrayList<BoardDTO> li = BoardService.getInstance().selectBoards(
-			p , vo.getBoardPerPage());
+	int pMax = vo.getPageTotal();
+		
 %>
 <script>
 	$(function(){
@@ -96,6 +96,8 @@
 				<span>조회</span><span>좋아요</span><span>싫어요</span>
 			</p>
 			<%
+				ArrayList<BoardDTO> li = BoardService.getInstance().selectBoards(
+						p , vo.getBoardPerPage());
 				for(BoardDTO bdto : li){
 			%>
 				<p>
@@ -116,7 +118,7 @@
 				<div class="col-xs-4">
 					<ul class="pager">
 					<%if(!vo.isFirstGroup()){%>
-						<li class="previous"><a href="<%=request.getRequestURL()%>?p=<%=p-vo.getPagePerGroup()%>">&lt;이전</a></li>
+						<li class="previous"><a href="<%=request.getRequestURL()%>?p=<%=vo.getFirstPageOfGroup()-1%>">&lt;이전</a></li>
 					<%}%>
 					</ul>
 				</div>
@@ -134,7 +136,7 @@
 				<div class="col-xs-4 text-left">
 					<ul class="pager">
 					<%if(!vo.isLastGroup()){%>
-						<li class="next"><a href="<%=request.getRequestURL()%>?p=<%=p+vo.getPagePerGroup()%>">다음&gt;</a></li>
+						<li class="next"><a href="<%=request.getRequestURL()%>?p=<%=vo.getLastPageOfGroup()+1%>">다음&gt;</a></li>
 					<%}%>
 					</ul>
 				</div>
