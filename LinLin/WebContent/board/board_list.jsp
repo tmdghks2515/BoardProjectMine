@@ -1,5 +1,5 @@
-<%@page import="survice.BoardService"%>
-<%@page import="DTO.BoardDTO"%>
+<%@page import="service.BoardService"%>
+<%@page import="dto.BoardDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -101,7 +101,7 @@
 			%>
 				<p>
 					<span><%=li.get(i).getbNo() %></span>
-					<span><a href="board_view.jsp?bNo=<%=li.get(i).getbNo()%>"><%=li.get(i).getTitle() %></a></span>
+					<span><a href="board_view.jsp?bNo=<%=li.get(i).getbNo()%>"><%=li.get(i).getTitle() %> [<%=BoardService.getInstance().selectAllComment(li.get(i).getbNo()).size() %>]</a></span>
 					<span><%=li.get(i).getWriter() %></span>
 					<span><%=li.get(i).getbDate() %></span>
 					<span><%= li.get(i).getbCount()%></span>

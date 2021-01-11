@@ -1,11 +1,11 @@
-package survice;
+package service;
 
 
 import java.util.ArrayList;
 
-import DTO.BoardDTO;
-import DTO.CommentDTO;
 import dao.BoardDAO;
+import dto.BoardDTO;
+import dto.CommentDTO;
 
 public class BoardService {
 	private static BoardService instance = new BoardService();
@@ -50,5 +50,9 @@ public class BoardService {
 	public void boardLike(int bNo,String id,int flag) throws Exception {
 		BoardDAO.getInstance().insertBoardLike(bNo,id,flag);
 		BoardDAO.getInstance().boardLike(bNo,flag);
+	}
+	
+	public void cLikeHate(int cNo,int index){
+		BoardDAO.getInstance().cLikeHate(cNo,index);
 	}
 }

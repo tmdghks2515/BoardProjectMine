@@ -6,9 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import DTO.BoardDTO;
-import DTO.CommentDTO;
 import config.DBManager;
+import dto.BoardDTO;
+import dto.CommentDTO;
 
 public class BoardDAO {
 	private static BoardDAO instance = new BoardDAO();
@@ -90,7 +90,7 @@ public class BoardDAO {
 		ArrayList<CommentDTO> li = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "select * from board_comment where bno = "+bNo;
+		String sql = "select * from board_comment where bno = "+bNo+" order by cNo desc";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -130,7 +130,7 @@ public class BoardDAO {
 		boolean result = false;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "select * from blike_bhate where bno = ? and id like ?";
+		String sql = "select * from board_like where bno = ? and id like ?";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, bNo);
@@ -146,7 +146,7 @@ public class BoardDAO {
 
 	public void insertBoardLike(int bNo, String id, int flag) throws Exception {
 		PreparedStatement pstmt = null;
-		String sql = "insert into blike_bhate values(?,?,?)";
+		String sql = "insert into board_like values(?,?,?)";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, bNo);
@@ -202,6 +202,24 @@ public class BoardDAO {
 			manager.close(pstmt, rs);
 		}
 		return li;
+	}
+
+	public void cLikeHate(int cNo, int index){
+		PreparedStatement pstmt = null;
+		String sql = "";
+		if(index == 0)
+			sql = "update board_comment set clike = clike + 1 where cno = "+cNo;
+		else if(index == 1)
+			sql = "update board_comment set chate= chate + 1 where cno = "+cNo;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int count = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			manager.close(pstmt, null);
+		}
+		
 	}
 	
 

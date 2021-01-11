@@ -1,5 +1,5 @@
 <%@page import="vo.MemberVO"%>
-<%@page import="survice.MemberService"%>
+<%@page import="service.MemberService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
@@ -21,8 +21,10 @@
 		session.setAttribute("grade", vo.getGrade());
 		if(request.getParameter("url")==null)
 			response.sendRedirect(request.getContextPath()+"/index.jsp");
+		else if(request.getParameter("bNo")==null)
+			response.sendRedirect(request.getParameter("url"));
 		else
-			response.sendRedirect(request.getContextPath()+"/"+
-				request.getParameter("url")+"?bNo="+request.getParameter("bNo"));
+			response.sendRedirect(request.getParameter("url")+"?bNo="+request.getParameter("bNo"));
+			
 	}
 %>

@@ -1,4 +1,4 @@
-package survice;
+package service;
 
 import dao.MemberDAO;
 import vo.MemberVO;

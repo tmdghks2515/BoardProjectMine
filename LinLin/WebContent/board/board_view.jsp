@@ -1,18 +1,18 @@
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
-<%@page import="DTO.CommentDTO"%>
+<%@page import="dto.CommentDTO"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="survice.MemberService"%>
+<%@page import="service.MemberService"%>
 <%@page import="vo.MemberVO"%>
-<%@page import="DTO.BoardDTO"%>
-<%@page import="survice.BoardService"%>
+<%@page import="dto.BoardDTO"%>
+<%@page import="service.BoardService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>게시글 보기</title>
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <%!
@@ -50,6 +50,7 @@
 	String id = "방문객";
 	if(session.getAttribute("login") != null && (boolean)session.getAttribute("login"))
 		id = (String)session.getAttribute("id");
+	String id_hidden = id.substring(0, 3) + "***";
 %>
 <style>
 	#container{
@@ -156,7 +157,7 @@
 				if(id.equals("방문객")){
 			%>
 				alert("댓글 작성을 위해 로그인화면 으로 이동합니다.");
-				location.href="<%=request.getContextPath()%>/member/login.jsp?url=board/board_view.jsp&bNo=<%=bNo%>";
+				location.href="<%=request.getContextPath()%>/member/login.jsp?url=<%=request.getRequestURL()%>&bNo=<%=bNo%>";
 			<%
 				}else{
 			%>
@@ -175,6 +176,20 @@
 			<%
 				}
 			%>
+		})
+		
+ 		$(".clike a").click(function(e){
+			e.preventDefault();
+			var index = $(this).index()%2;
+			var cNo = $(this).next().val();
+			$.ajax({
+				url:"process/clike_process.jsp",
+				data:{"cNo":cNo,"index":index},
+				method:'get',
+				success:function(d){
+					location.reload();
+				}
+			})
 		})
 	})
 </script>
@@ -215,7 +230,7 @@
 				<%
 					}else{
 				%>
-					<%=vo.getName()%>(<%=id%>)		
+					<%=vo.getName()%>(<%=id_hidden%>)		
 				<%
 					}
 				%>
@@ -230,7 +245,7 @@
 			</div>
 			<div id="cmts">
 				<p id="cmt_h">
-					<span>전체댓글: </span>
+					<span>전체댓글: <%=BoardService.getInstance().selectAllComment(bNo).size() %>개</span>
 				</p>
 				<%
 					ArrayList<CommentDTO> li = 
@@ -239,10 +254,14 @@
 				%>
 				<div class="cmt">
 					<p>
-						<%=MemberService.getInstance().select(cdto.getWriter()).getName() %> 
+						<%=MemberService.getInstance().select(cdto.getWriter()).getName() %>(<%=cdto.getWriter().substring(0,3)+"***" %>)
 						<small><%=getDateDiff(cdto.getcDate()) %></small>
 					</p>
 					<p><%=cdto.getContent() %></p>
+					<p class="clike">
+						<a href="#"><span class="glyphicon glyphicon-thumbs-up">좋아요</span></a><input type="hidden" value="<%=cdto.getcNo()%>"> <span id="like_count"><%=cdto.getcLike() %></span> 
+						<a href="#"><span class="glyphicon glyphicon-thumbs-down">싫어요</span></a><input type="hidden" value="<%=cdto.getcNo()%>"> <span id="hate_count"><%=cdto.getcHate() %></span>
+					</p>
 				</div>
 				<hr>
 				<%

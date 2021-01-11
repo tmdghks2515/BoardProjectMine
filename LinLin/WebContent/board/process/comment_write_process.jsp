@@ -1,5 +1,5 @@
-<%@page import="survice.BoardService"%>
-<%@page import="DTO.CommentDTO"%>
+<%@page import="service.BoardService"%>
+<%@page import="dto.CommentDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page errorPage="../../error/error.jsp" %>

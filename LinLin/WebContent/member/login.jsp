@@ -46,8 +46,10 @@ h1 a:link, h1 a:visited{
 </head>
 <%
 	String action = "process/login_process.jsp";
-	if(request.getParameter("url") != null)
+	if(request.getParameter("url") != null && request.getParameter("bNo")!=null)
 		action = "process/login_process.jsp?url="+request.getParameter("url")+"&bNo="+request.getParameter("bNo");
+	else if(request.getParameter("url") != null)
+		action = "process/login_process.jsp?url="+request.getParameter("url");
 %>
 <body>
 	<jsp:include page="/template/header.jsp"></jsp:include>

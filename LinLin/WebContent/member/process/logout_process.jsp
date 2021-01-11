@@ -2,5 +2,8 @@
     pageEncoding="UTF-8"%>
 <%
 	session.invalidate();
-	response.sendRedirect(request.getContextPath()+"/index.jsp");
+	if(request.getParameter("bNo") == null)
+		response.sendRedirect(request.getParameter("url"));
+	else
+		response.sendRedirect(request.getParameter("url")+"?bNo="+request.getParameter("bNo"));
 %>

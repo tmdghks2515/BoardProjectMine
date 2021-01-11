@@ -1,4 +1,4 @@
-package DTO;
+package dto;
 public class BoardDTO {
 	private int bNo;
 	private String bDate;
