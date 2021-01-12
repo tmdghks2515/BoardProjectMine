@@ -18,6 +18,11 @@ public class HandlerMapping {
 		case "login.do":
 			co = new LoginController();
 			break;
+		case "logout.do":
+			co = new LogoutController();
+			break;
+		case "register.do":
+			co = new RegisterController();
 		}
 		
 		

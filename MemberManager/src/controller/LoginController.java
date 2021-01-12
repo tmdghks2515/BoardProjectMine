@@ -13,10 +13,10 @@ public class LoginController implements Controller {
 	@Override
 	public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
-		ModelAndView view = new ModelAndView();
 		String id = request.getParameter("id");
 		String pass = request.getParameter("pass");
 		MemberVO vo = MemberService.getInstance().login(id, pass);
+		ModelAndView view = new ModelAndView();
 		if(vo == null) {
 			session.setAttribute("login", false);
 			view.setPage("index.jsp");

@@ -147,7 +147,7 @@
 		<div id="user">
 			<div>
 				<small>${sessionScope.name}(${sessionScope.grade.toLowerCase()}) 님이 로그인 했습니다</small><br>
-				<small><a href="#">정보수정</a> | <a href="${pageContext.request.contextPath }/LogoutServlet?url=${pageContext.request.requestURL}<%if(request.getParameter("bNo")!=null){%>&bNo=<%=request.getParameter("bNo")%><%}%>">로그아웃</a></small>
+				<small><a href="#">정보수정</a> | <a href="${pageContext.request.contextPath }/logout.do">로그아웃</a></small>
 			</div>
 			<img src="<%=request.getContextPath() %>/resource/img/dog.jpg">
 		</div>

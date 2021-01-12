@@ -31,7 +31,6 @@ public class DispatcherServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		String[] arr = request.getRequestURI().split("/");
-		System.out.println(arr[arr.length-1]);
 		ModelAndView view = null;
 		Controller co = HandlerMapping.getInstance().createController(arr[arr.length-1]);
 		if(co != null)

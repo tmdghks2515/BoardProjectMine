@@ -102,7 +102,7 @@
 	<div id="container">
 		<h1><a href="../index.jsp">HIVER</a> 회원가입</h1>
 		<div id="reg">
-			<form id="frm" action="<%=request.getContextPath() %>/member/process/reg_process.jsp" method="post" class="form">
+			<form id="frm" action="register.do" method="post" class="form">
 				<input type="text" name="id" placeholder="아이디" class="form-control">
 				<small></small>
 				<input type="password" name="pass" placeholder="비밀번호" class="form-control">
