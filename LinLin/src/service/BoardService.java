@@ -31,8 +31,8 @@ public class BoardService {
 		return BoardDAO.getInstance().selectBoard(bNo);
 	}
 	
-	public ArrayList<BoardDTO> selectBoards(int p,int n){
-		return BoardDAO.getInstance().selectBoards(p,n);
+	public ArrayList<BoardDTO> selectBoards(int p,int n,String mode){
+		return BoardDAO.getInstance().selectBoards(p,n,mode);
 	}
 	
 	public ArrayList<CommentDTO> selectAllComment(int bNo){
@@ -52,8 +52,15 @@ public class BoardService {
 		BoardDAO.getInstance().boardLike(bNo,flag);
 	}
 	
-	public void cLikeHate(int cNo,int index){
-		BoardDAO.getInstance().cLikeHate(cNo,index);
+	public void cLikeHate(String id,int cNo,int index){//index = 1(hate) or 0(like)
+		int idx = BoardDAO.getInstance().checkCmtlike(id,cNo,index);
+		if(idx == -1) {
+			BoardDAO.getInstance().cLikeHate(cNo, index);
+			BoardDAO.getInstance().insertCmtLike(id,cNo,index);
+		}else if(index == idx) {
+			BoardDAO.getInstance().cLikeHateInverse(cNo, index);
+			BoardDAO.getInstance().deleteCmtLike(id,cNo,index);
+		}
 	}
 	
 	public int getBoardTotal() {

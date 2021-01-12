@@ -183,12 +183,12 @@ public class BoardDAO {
 		}
 	}
 
-	public ArrayList<BoardDTO> selectBoards(int p, int n) {
+	public ArrayList<BoardDTO> selectBoards(int p, int n,String mode) {
 		ArrayList<BoardDTO> li = new ArrayList<BoardDTO>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = "select * from (select ceil(rownum/?) as page, board2.* from "
-				+ "(select rownum ,board.* from board order by bno desc)board2"
+				+ "(select rownum ,board.* from board order by "+mode+" desc)board2"
 				+ ") where page = "+p;
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -241,6 +241,75 @@ public class BoardDAO {
 			manager.close(pstmt, rs);
 		}
 		return result;
+	}
+
+	public int checkCmtlike(String id, int cNo, int index) {
+		int idx = -1;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "select flag from cmt_like where id like ? and cNo = ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setInt(2, cNo);
+			rs = pstmt.executeQuery();
+			if(rs.next())
+				idx = rs.getInt(1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			manager.close(pstmt, rs);
+		}
+		return idx;
+	}
+
+	public void insertCmtLike(String id, int cNo, int index) {
+		PreparedStatement pstmt = null;
+		String sql = "insert into cmt_like values(?,?,?)";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, cNo);
+			pstmt.setString(2, id);
+			pstmt.setInt(3, index);
+			int count = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			manager.close(pstmt, null);
+		}
+	}
+
+	public void cLikeHateInverse(int cNo, int index) {
+		PreparedStatement pstmt = null;
+		String sql = "";
+		if(index == 0)
+			sql = "update board_comment set clike = clike - 1 where cno = "+cNo;
+		else if(index == 1)
+			sql = "update board_comment set chate= chate - 1 where cno = "+cNo;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int count = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			manager.close(pstmt, null);
+		}
+	}
+
+	public void deleteCmtLike(String id, int cNo, int index) {
+		PreparedStatement pstmt = null;
+		String sql = "delete from cmt_like where id like ? and cno = ? and flag = ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setInt(2, cNo);
+			pstmt.setInt(3, index);
+			int count = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			manager.close(pstmt, null);
+		}
 	}
 	
 

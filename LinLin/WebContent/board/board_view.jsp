@@ -180,6 +180,13 @@
 		
  		$(".clike a").click(function(e){
 			e.preventDefault();
+			<%
+			if(session.getAttribute("id") == null){
+				%>
+				alert("로그인이 필요한 작업입니다.");
+				<%
+			}else{
+			%>
 			var index = $(this).index()%2;
 			var cNo = $(this).next().val();
 			$.ajax({
@@ -190,6 +197,7 @@
 					location.reload();
 				}
 			})
+			<%}%>
 		})
 	})
 </script>

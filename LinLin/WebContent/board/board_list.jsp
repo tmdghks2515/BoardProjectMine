@@ -71,6 +71,9 @@
 		background-color:#007edd;
 		color:white;
 	}
+	#board_h a:link,#board_h a:visited{
+		color:white;
+	}
 </style>
 <%
 	int p = 1;
@@ -78,11 +81,15 @@
 		p = Integer.parseInt(request.getParameter("p"));
 	PagingVO vo = new PagingVO(BoardService.getInstance().getBoardTotal() , p);
 	int pMax = vo.getPageTotal();
-		
+	
+	String mode = "bno";
+	if(request.getParameter("mode") != null)
+		mode = request.getParameter("mode");
 %>
 <script>
 	$(function(){
 		$(".pagination li").eq(<%=(p-1) % vo.getPagePerGroup() %>).addClass("active");
+			
 	})
 </script>
 <body>
@@ -92,12 +99,12 @@
 		<div class="container">
 			<div id="board_list">
 			<p id="board_h">
-				<span>번호</span><span style="text-align: center;">제목</span><span>글쓴이</span><span>작성일</span>
-				<span>조회</span><span>좋아요</span><span>싫어요</span>
+				<span><a href="<%=request.getRequestURL() %>?mode=bno">번호</a></span><span style="text-align: center;">제목</span><span>글쓴이</span><span>작성일</span>
+				<span>조회</span><span><a href="<%=request.getRequestURL() %>?mode=blike">좋아요</a></span><span><a href="<%=request.getRequestURL() %>?mode=bhate">싫어요</a></span>
 			</p>
 			<%
 				ArrayList<BoardDTO> li = BoardService.getInstance().selectBoards(
-						p , vo.getBoardPerPage());
+						p , vo.getBoardPerPage() , mode);
 				for(BoardDTO bdto : li){
 			%>
 				<p>
@@ -126,9 +133,15 @@
 					<ul class="pagination">
 					<%
 						for(int i=vo.getFirstPageOfGroup() ; i<=vo.getLastPageOfGroup() ; i++){
+							if(i == p){
 					%>
-						<li><a href="<%=request.getRequestURL()%>?p=<%=i %>"><%=i %></a></li>
+						<li><a><%=i %></a></li>
+					<%		
+							}else{
+					%>
+						<li><a href="<%=request.getRequestURL()%>?p=<%=i %>&mode=<%=mode%>"><%=i %></a></li>
 					<%
+							}
 						}
 					%>
 					</ul>
@@ -136,7 +149,7 @@
 				<div class="col-xs-4 text-left">
 					<ul class="pager">
 					<%if(!vo.isLastGroup()){%>
-						<li class="next"><a href="<%=request.getRequestURL()%>?p=<%=vo.getLastPageOfGroup()+1%>">다음&gt;</a></li>
+						<li class="next"><a href="<%=request.getRequestURL()%>?p=<%=vo.getLastPageOfGroup()+1%>&mode=<%=mode%>">다음&gt;</a></li>
 					<%}%>
 					</ul>
 				</div>
