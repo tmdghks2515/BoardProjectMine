@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import service.MemberService;
+import vo.MemberVO;
+
 /**
  * Servlet implementation class LoginServlet
  */
@@ -27,12 +30,21 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html;charset=utf-8");
 		HttpSession session = request.getSession();
-		session.setAttribute("login", true);
-		session.setAttribute("id", request.getParameter("id"));
-		session.setAttribute("pass", request.getParameter("pass"));
-		session.setAttribute("name", "임승환");
-		response.sendRedirect(request.getContextPath()+"/index.jsp");
+		String id = request.getParameter("id");
+		String pass = request.getParameter("pass");
+		MemberVO vo = MemberService.getInstance().login(id, pass);
+		if(vo == null) {
+			session.setAttribute("login", false);
+			response.getWriter().append("<script>alert('아이디와 비밀번호를 확인하세요.');history.back();</script>");
+		}else {
+			session.setAttribute("login", true);
+			session.setAttribute("id", id);
+			session.setAttribute("name", vo.getName());
+			session.setAttribute("grade", vo.getGrade());
+			response.sendRedirect(request.getContextPath()+"/index.jsp");
+		}
 	}
 
 	/**
