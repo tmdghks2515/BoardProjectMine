@@ -26,6 +26,20 @@ public class LoginServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
+	@Override
+	public void destroy() {
+		// TODO Auto-generated method stub
+		super.destroy();
+		System.out.println("destroy loginservlet");
+	}
+
+	@Override
+	public void init() throws ServletException {
+		// TODO Auto-generated method stub
+		super.init();
+		System.out.println("init loginservlet");
+	}
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */

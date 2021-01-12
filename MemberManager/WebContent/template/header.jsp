@@ -146,8 +146,8 @@
 
 		<div id="user">
 			<div>
-				<small><%=session.getAttribute("name") %> 님이 로그인 했습니다</small><br>
-				<small><a href="#">정보수정</a> | <a href="<%=request.getContextPath() %>/LogoutServlet?url=<%=request.getRequestURL()%><%if(request.getParameter("bNo")!=null){%>&bNo=<%=request.getParameter("bNo")%><%}%>">로그아웃</a></small>
+				<small>${sessionScope.name}(${sessionScope.grade.toLowerCase()}) 님이 로그인 했습니다</small><br>
+				<small><a href="#">정보수정</a> | <a href="${pageContext.request.contextPath }/LogoutServlet?url=${pageContext.request.requestURL}<%if(request.getParameter("bNo")!=null){%>&bNo=<%=request.getParameter("bNo")%><%}%>">로그아웃</a></small>
 			</div>
 			<img src="<%=request.getContextPath() %>/resource/img/dog.jpg">
 		</div>
@@ -155,7 +155,7 @@
 <%}else{%>
 	
 	<div id="login">
-		<small><a href="<%=request.getContextPath() %>/member/login.jsp?url=<%=request.getRequestURL()%><%if(request.getParameter("bNo")!=null){%>&bNo=<%=request.getParameter("bNo")%><%}%>">로그인</a></small> |
+		<small><a href="${pageContext.request.contextPath}/member/login.jsp?url=${pageContext.request.requestURL}<%if(request.getParameter("bNo")!=null){%>&bNo=${requestScope.bNo} <%}%>">로그인</a></small> |
 		<small><a href="<%=request.getContextPath() %>/member/register.jsp">회원가입</a></small>
 	</div>
 <%}%>

@@ -48,7 +48,7 @@ h1 a:link, h1 a:visited{
 	<jsp:include page="/template/header.jsp"></jsp:include>
 	<div id="container">
 		<h1><a href="../index.jsp">HIVER</a> 로그인</h1>
-		<form id="frm" action="../LoginServlet" method="post">
+		<form id="frm" action="../login.do" method="post">
 			<input type="text" name="id" placeholder="아이디"><br>
 			<input type="password" name="pass" placeholder="비밀번호"><br>
 			<button>로그인</button><br>

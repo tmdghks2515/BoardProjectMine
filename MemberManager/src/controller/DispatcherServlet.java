@@ -1,59 +1,55 @@
-package member_servlet;
+package controller;
 
 import java.io.IOException;
-
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.websocket.SendResult;
+
+import model.ModelAndView;
 
 /**
- * Servlet implementation class LogoutServlet
+ * Servlet implementation class DispatcherServlet
  */
-@WebServlet("/LogoutServlet")
-public class LogoutServlet extends HttpServlet {
+@WebServlet({"/","*.do"})
+public class DispatcherServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LogoutServlet() {
+    public DispatcherServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
-    
-    
-	@Override
-	public void destroy() {
-		super.destroy();
-		System.out.println("Destroy LogoutServlet");
-	}
-
-
-	@Override
-	public void init() throws ServletException {
-		super.init();
-		System.out.println("init LogoutServlet");
-	}
-
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		session.invalidate();
-		response.sendRedirect(request.getParameter("url"));
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+		String[] arr = request.getRequestURI().split("/");
+		System.out.println(arr[arr.length-1]);
+		ModelAndView view = null;
+		Controller co = HandlerMapping.getInstance().createController(arr[arr.length-1]);
+		if(co != null)
+			view = co.execute(request, response);
+		if(view == null)
+			view = new ModelAndView("index.jsp", true);
+		if(view.isSendRedirect()) {
+			response.sendRedirect(view.getPage());
+		}else {
+			request.getRequestDispatcher(view.getPage()).forward(request, response);
+		}
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		request.setCharacterEncoding("utf-8");
 		doGet(request, response);
 	}
 
