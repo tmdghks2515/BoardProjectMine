@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,8 +27,7 @@
 </style>
 <script>
 	$(function(){
-		$("#qna_list").text(${sessionScope.li[0].title});
-		
+		$("#qna_list").text(${sessionScope.li[0]});
 	})
 </script>
 </head>
@@ -44,7 +44,9 @@
 			<p><button class="btn btn-info">작성완료</button></p>
 		</form>
 		<hr>
-		<div id="qna_list"></div>
+		<div id="qna_list">
+			
+		</div>
 	</div>
 </div>
 </body>

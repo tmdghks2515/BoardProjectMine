@@ -19,8 +19,13 @@ public class QnAService {
 	
 
 	public ArrayList<QnADTO> selectQnAById(String id,int page) throws Exception {
-		ArrayList<QnADTO> li = QnADAO.getInstance().selectQnAById(id,page);
-		return null;
+		ArrayList<QnADTO> li = null;
+		if(MemberService.getInstance().select(id).getGrade().equals("MASTER")) {
+			li = QnADAO.getInstance().selectAllQnA(page);
+		}else {
+			li = QnADAO.getInstance().selectQnAById(id,page);
+		}
+		return li;
 	}
 
 	public void insertQnA(String title, String content, String writer) throws Exception {
