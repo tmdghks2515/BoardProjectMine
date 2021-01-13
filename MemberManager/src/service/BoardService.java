@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import dao.BoardDAO;
 import dto.BoardDTO;
 import dto.CommentDTO;
+import dto.QnADTO;
 
 public class BoardService {
 	private static BoardService instance = new BoardService();
@@ -66,4 +67,5 @@ public class BoardService {
 	public int getBoardTotal() {
 		return BoardDAO.getInstance().getBoardTotal();
 	}
+
 }

@@ -20,12 +20,15 @@ public class MemberService {
 		return vo;
 	}
 	
-	public void insert(String id, String pass, String name, int age) {
+	public void insert(String id, String pass, String name, int age) throws Exception {
 		MemberDAO.getInstance().insert(id,pass,name,age);
 	}
 	
 	public MemberVO select(String id) {
 		MemberVO vo = MemberDAO.getInstance().select(id);
 		return vo;
+	}
+	public void update(MemberVO vo) throws Exception {
+		MemberDAO.getInstance().update(vo);
 	}
 }

@@ -135,7 +135,7 @@
 	<nav>
 		<ul id="main">
 			<li><a href="<%=request.getContextPath()%>/board/board_list.jsp">게시판</a></li>
-			<li><a href="#">메인메뉴2</a></li>
+			<li><a href="qna.do">문의하기</a></li>
 			<li><a href="#">메인메뉴3</a></li>
 			<li><a href="#">메인메뉴4</a></li>
 		</ul>
@@ -147,9 +147,9 @@
 		<div id="user">
 			<div>
 				<small>${sessionScope.name}(${sessionScope.grade.toLowerCase()}) 님이 로그인 했습니다</small><br>
-				<small><a href="#">정보수정</a> | <a href="${pageContext.request.contextPath }/logout.do">로그아웃</a></small>
+				<small><a href="update.do">정보수정</a> | <a href="${pageContext.request.contextPath }/logout.do">로그아웃</a></small>
 			</div>
-			<img src="<%=request.getContextPath() %>/resource/img/dog.jpg">
+			<img src="${pageContext.request.contextPath }/resource/img/dog.jpg">
 		</div>
 		
 <%}else{%>

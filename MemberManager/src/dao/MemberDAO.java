@@ -44,7 +44,7 @@ public class MemberDAO {
 		return vo;
 	}
 
-	public void insert(String id, String pass, String name, int age) {
+	public void insert(String id, String pass, String name, int age) throws Exception {
 		PreparedStatement pstmt = null;
 		String sql = "INSERT INTO HIVER_MEMBER VALUES(?,?,?,?,1)";
 		try {
@@ -54,6 +54,8 @@ public class MemberDAO {
 			pstmt.setString(3, name);
 			pstmt.setInt(4, age);
 			int count = pstmt.executeUpdate();
+			if(count == 0)
+				throw new Exception("아이디가 이미 존재합니다.");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -80,6 +82,25 @@ public class MemberDAO {
 		}
 		
 		return vo;
+	}
+
+	public void update(MemberVO vo) throws Exception {
+		PreparedStatement pstmt = null;
+		String sql = "update hiver_member set pass = ?,name=?,age=? where id like ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getPass());
+			pstmt.setString(2, vo.getName());
+			pstmt.setInt(3, vo.getAge());
+			pstmt.setString(4, vo.getId());
+			int count = pstmt.executeUpdate();
+			if(count == 0)
+				throw new Exception("ㅋㅋ");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
 	}
 	
 }

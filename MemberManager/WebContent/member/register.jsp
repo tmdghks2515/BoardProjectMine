@@ -40,33 +40,19 @@
 			if($(this).val().length < 6 || $(this).val().length>15){
 				$(this).css("margin","0");
 				$(this).next().text("아이디는 6~15자 입니다.");
-				$(this).next().addClass("false");
+				$(this).next().css("color","red");
 			}else{
 				$(this).css("margin-bottom","20px");
 				$(this).next().text("");
 			}
 		},"blur":function(){
-			$.ajax({
-				data:$("#frm").serialize(),
-				url:"process/ajax_name.jsp",
-				method:'get',
-				success:function(data){
-					if($("#frm input").eq(0).val().length < 6 || $("#frm input").eq(0).val().length > 15){
-						$("#frm input").eq(0).css("margin",0);
-						$("#frm input").eq(0).next().text("아이디는 6~15자 입니다.");
-						$("#frm input").eq(0).next().css("color","red");
-					}else if(data == 0){
-						$("#frm input").eq(0).css("margin","0");
-						$("#frm input").eq(0).next().text("사용 가능한 아이디 입니다.");
-						$("#frm input").eq(0).next().css("color","blue");
-					}else if(data == 1){
-						$("#frm input").eq(0).css("margin","0");
-						$("#frm input").eq(0).next().text("이미 사용중인 아이디 입니다.");
-						$("#frm input").eq(0).next().css("color","red");
-					}
+				if($("#frm input").eq(0).val().length < 6 || $("#frm input").eq(0).val().length > 15){
+					$("#frm input").eq(0).css("margin",0);
+					$("#frm input").eq(0).next().text("아이디는 6~15자 입니다.");
+					$("#frm input").eq(0).next().css("color","red");
 				}
-			})
-		}})
+			}
+		})
 		
 		var alphaRex = /[a-zA-Z]/;
 		var numRex = /[0-9]/;

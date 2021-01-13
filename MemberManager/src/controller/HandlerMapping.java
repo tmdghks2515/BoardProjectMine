@@ -23,6 +23,25 @@ public class HandlerMapping {
 			break;
 		case "register.do":
 			co = new RegisterController();
+			break;
+		case "idcheck.do":
+			co = new idCheckController();
+			break;
+		case "update.do":
+			co = new UpdateViewController();
+			break;
+		case "updateAction.do":
+			co = new UpdateActionController();
+			break;
+		case "ask.do":
+			co = new AskController();
+			break;
+		case "qna.do":
+			co = new QnALoginCheck();
+			break;
+		case "qnaView.do":
+			co = new QnAViewController();
+			break;
 		}
 		
 		

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import config.DBManager;
 import dto.BoardDTO;
 import dto.CommentDTO;
+import dto.QnADTO;
 
 public class BoardDAO {
 	private static BoardDAO instance = new BoardDAO();
@@ -311,6 +312,8 @@ public class BoardDAO {
 			manager.close(pstmt, null);
 		}
 	}
+
+
 	
 
 
