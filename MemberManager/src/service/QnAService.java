@@ -18,17 +18,28 @@ public class QnAService {
 	}
 	
 
-	public ArrayList<QnADTO> selectQnAById(String id,int page) throws Exception {
+	public ArrayList<QnADTO> selectQnAById(String id) throws Exception {
 		ArrayList<QnADTO> li = null;
 		if(MemberService.getInstance().select(id).getGrade().equals("MASTER")) {
-			li = QnADAO.getInstance().selectAllQnA(page);
+			id="%";
+			li = QnADAO.getInstance().selectQnAById(id);
 		}else {
-			li = QnADAO.getInstance().selectQnAById(id,page);
+			li = QnADAO.getInstance().selectQnAById(id);
 		}
+		return li;
+	}
+	
+	public ArrayList<QnADTO> selectAllQnA(String id) throws Exception {
+		ArrayList<QnADTO> li = null;
+		if(MemberService.getInstance().select(id).getGrade().equals("MASTER"))
+			id="%";
+		li = QnADAO.getInstance().selectAllQnA(id);
 		return li;
 	}
 
 	public void insertQnA(String title, String content, String writer) throws Exception {
 		QnADAO.getInstance().insertQnA(title,content,writer);
 	}
+	
+	
 }

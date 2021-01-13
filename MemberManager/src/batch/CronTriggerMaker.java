@@ -51,5 +51,4 @@ public class CronTriggerMaker {
 	 * 크론 표현식 : 초 분 시 일 월 요일 년도
 	 * 
 	 */
-	
 }

@@ -14,7 +14,7 @@
 		margin-top:100px;
 	}
 	form{
-		width:700px;
+		width:1200px;
 		margin:0 auto;
 	}
 	textarea{
@@ -25,29 +25,53 @@
 		padding:10px;
 	}
 	/*문의목록******************************************/
-	table{
-		width:100%;
-		border-collapse: collapse;
-		border:1px solid gray;
+	#qna_list p:first-child{
+		
+		background-color: #007fff;
+		color:white;
 	}
-	tr td{
-		padding:10px 0;
+	#qna_list span{
+		width:16.6%;
+		display: block;
+		float:left;
 		text-align: center;
-		width:16.66%;
-		border-bottom:1px solid gray;
+		padding:8px 0;
 	}
-	#con_and_re{
-		height:150px;
+	#qna_list p{
+		clear:both;
+		height:35.4px;
+		margin:0;
+		border-bottom: 1px solid gray;
+	}
+	.slide{
 		display: none;
+		height:150px;
+		padding:50px;
+		background-color: #eeeeee;
 	}
-	#con_and_re td{
-		border:1px solid gray;
+	#qna_list #view_more{
+		text-align: center;
+		border:none;
+	}
+	#view_more small{
+		padding:10px;
 	}
 </style>
 <script>
 	$(function(){
-		$("table a").click(function(){
-			$(this).parents("tr").next().slideToggle();
+		$("#qna_list a").click(function(e){
+			$(this).parents("p").next().slideToggle(300);
+			e.preventDefault();
+		})
+		
+		$("#view_more a").click(function(){
+			$.ajax({
+				url:"view_more.do",
+				method:'get',
+				success:function(d){
+					location.reload();
+				}
+			})
 		})
 	})
 </script>
@@ -61,45 +85,37 @@
 			<label for="title"><small>제목</small></label>
 			<input type="text" class="form-control" name="title" id="title">
 			<label for="content"><small>문의내용</small></label>
-			<textarea id="content" name="content"  class="form-control" rows="13"></textarea>
+			<textarea id="content" name="content"  class="form-control" rows="16"></textarea>
 			<p><button class="btn btn-info">작성완료</button></p>
 		</form>
 		<hr>
 		<div id="qna_list">
-			<table>
-				<tr>
-					<td>문의번호</td>
-					<td>상태</td>
-					<td>제목</td>
-					<td>작성자</td>
-					<td>날짜</td>
-					<td>문의답장</td>
-				</tr>
-				<c:forEach var="qdto" items="${sessionScope.li }">
-					<tr>
-						<td><c:out value="${qdto.qNo }"/></td>
-						<c:choose>
-							<c:when test="${qdto.status == 0 }">
-								<td>안읽음</td>
-							</c:when>
-							<c:when test="${qdto.status == 1 }">
-								<td>읽음</td>
-							</c:when>
-							<c:otherwise>
-								<td>답장완료</td>
-							</c:otherwise>
-						</c:choose>
-						<td><c:out value="${qdto.title }"/></td>
-						<td><c:out value="${qdto.writer }"/></td>
-						<td><c:out value="${qdto.wDate }"/></td>
-						<td><a href="#">보기</a></td>
-					</tr>
-					<tr id="con_and_re">
-						<td colspan="3"><c:out value="${qdto.content }"></c:out></td>
-						<td colspan="3"><c:out value="${qdto.response }"></c:out></td>
-					</tr>
-				</c:forEach>
-			</table>
+			<p>
+				<span>문의번호</span>
+				<span>상태</span>
+				<span>제목</span>
+				<span>작성자</span>
+				<span>날짜</span>
+				<span>문의답장</span>
+			</p>
+			<c:forEach var="qdto" items="${sessionScope.li }">
+				<p>
+					<span><c:out value="${qdto.qNo }"></c:out></span>
+					<span><c:out value="${qdto.status }"></c:out></span>
+					<span><c:out value="${qdto.title }"></c:out></span>
+					<span><c:out value="${qdto.writer }"></c:out></span>
+					<span><c:out value="${qdto.wDate }"></c:out></span>
+					<span><a href="#">보기</a></span>
+				</p>
+				<div class="slide">
+					<c:out value="${qdto.content }"></c:out>
+				</div>
+			</c:forEach>
+			<p id="view_more">
+				<a href="#">
+					<small class="glyphicon glyphicon-chevron-down">펼치기</small>
+				</a>
+			</p>
 		</div>
 	</div>
 </div>

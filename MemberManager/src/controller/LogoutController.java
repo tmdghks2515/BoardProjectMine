@@ -1,5 +1,6 @@
 package controller;
 
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -12,7 +13,7 @@ public class LogoutController implements Controller {
 	public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
 		session.invalidate();
-		return new ModelAndView("index.jsp",true);
+		return new ModelAndView(request.getContextPath()+"/index.jsp",true);
 	}
 
 }

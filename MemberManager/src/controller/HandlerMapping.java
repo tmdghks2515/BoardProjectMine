@@ -36,11 +36,11 @@ public class HandlerMapping {
 		case "ask.do":
 			co = new AskController();
 			break;
-		case "qna.do":
-			co = new QnALoginCheck();
-			break;
 		case "qnaView.do":
 			co = new QnAViewController();
+			break;
+		case "view_more.do":
+			co = new ViewMoreController();
 			break;
 		}
 		
