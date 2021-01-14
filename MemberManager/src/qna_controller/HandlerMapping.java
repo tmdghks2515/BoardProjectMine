@@ -1,4 +1,4 @@
-package controller;
+package qna_controller;
 
 public class HandlerMapping {
 	private static HandlerMapping instance = new HandlerMapping();

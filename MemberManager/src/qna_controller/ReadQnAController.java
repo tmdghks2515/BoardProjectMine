@@ -1,4 +1,4 @@
-package controller;
+package qna_controller;
 
 import java.util.ArrayList;
 
@@ -18,9 +18,11 @@ public class ReadQnAController implements Controller {
 		int index = Integer.parseInt(request.getParameter("index"));
 		try {
 			ArrayList<QnADTO> li = QnAService.getInstance().selectAllQnA((String)session.getAttribute("id"));
-			int qNo = li.get(index).getqNo();
-			QnAService.getInstance().readQnA(qNo);
-			response.getWriter().write("did");
+			if(li.get(index).getStatus()==0) {
+				int qNo = li.get(index).getqNo();
+				QnAService.getInstance().readQnA(qNo);
+				response.getWriter().write("did");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

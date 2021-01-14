@@ -1,4 +1,4 @@
-package controller;
+package qna_controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,8 +15,9 @@ public class ViewMoreController implements Controller {
 			int maxPage = (int)Math.ceil((QnAService.getInstance().selectAllQnA((String)request.getSession().getAttribute("id")).size()/5));
 			if(page < maxPage)
 				request.getSession().setAttribute("li", QnAService.getInstance().selectQnAById((String)request.getSession().getAttribute("id"),page));
-			else
+			else {
 				request.getSession().setAttribute("li", QnAService.getInstance().selectAllQnA((String)request.getSession().getAttribute("id")));
+			}
 				
 		} catch (Exception e) {
 			e.printStackTrace();

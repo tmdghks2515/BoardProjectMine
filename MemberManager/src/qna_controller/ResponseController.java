@@ -1,4 +1,4 @@
-package controller;
+package qna_controller;
 
 
 import javax.servlet.http.HttpServletRequest;

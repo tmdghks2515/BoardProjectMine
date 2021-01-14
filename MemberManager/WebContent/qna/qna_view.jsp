@@ -80,6 +80,7 @@
 		}
 			
 		$("#qna_list a").click(function(e){
+			$(this).parents("p").siblings("p").next().slideUp(300);
 			$(this).parents("p").next().slideToggle(300);
 			e.preventDefault();
 			
@@ -120,13 +121,15 @@
 <jsp:include page="${request.contextPath }/template/ask_h.jsp"></jsp:include>
 	<div id="container">
 	<div class="container">
-		<form action="ask.do" class="form-group">
-			<label for="title"><small>제목</small></label>
-			<input type="text" class="form-control" name="title" id="title">
-			<label for="content"><small>문의내용</small></label>
-			<textarea id="content" name="content"  class="form-control" rows="16"></textarea>
-			<p><button class="btn btn-info">작성완료</button></p>
-		</form>
+		<c:if test="${sessionScope.grade!='MASTER'}">
+			<form action="ask.do" class="form-group">
+				<label for="title"><small>제목</small></label>
+				<input type="text" class="form-control" name="title" id="title">
+				<label for="content"><small>문의내용</small></label>
+				<textarea id="content" name="content"  class="form-control" rows="16"></textarea>
+				<p><button class="btn btn-info">작성완료</button></p>
+			</form>
+		</c:if>
 		<hr>
 		<div id="qna_list">
 			<p>
@@ -137,6 +140,7 @@
 				<span>날짜</span>
 				<span>문의답장</span>
 			</p>
+			<div></div>
 			<c:forEach var="qdto" items="${sessionScope.li }">
 				<p>
 					<span><c:out value="${qdto.qNo }"></c:out></span>
