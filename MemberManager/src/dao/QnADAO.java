@@ -86,5 +86,24 @@ public class QnADAO {
 		return li;
 	}
 
+	public ArrayList<QnADTO> searchUnanswered() {
+		ArrayList<QnADTO> li = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "select * from qna where status between 0 and 1 order by qno desc";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				li.add(new QnADTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getString(7)));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			manager.close(pstmt, rs);
+		}
+		return li;
+	}
+
 	
 }

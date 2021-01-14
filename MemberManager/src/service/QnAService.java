@@ -41,5 +41,9 @@ public class QnAService {
 		QnADAO.getInstance().insertQnA(title,content,writer);
 	}
 	
+	public ArrayList<QnADTO> searchUnanswered(){
+		return QnADAO.getInstance().searchUnanswered();
+	}
+	
 	
 }

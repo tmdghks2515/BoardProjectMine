@@ -56,6 +56,9 @@
 	#view_more small{
 		padding:10px;
 	}
+	#view_more a:nth-child(2){
+		display: none;
+	}
 </style>
 <script>
 	$(function(){
@@ -64,7 +67,9 @@
 			e.preventDefault();
 		})
 		
-		$("#view_more a").click(function(){
+		$("#view_more a").click(function(e){
+			
+			e.preventDefault();
 			$.ajax({
 				url:"view_more.do",
 				method:'get',
@@ -108,7 +113,12 @@
 					<span><a href="#">보기</a></span>
 				</p>
 				<div class="slide">
-					<c:out value="${qdto.content }"></c:out>
+					<div id="content">
+						<c:out value="${qdto.content }"></c:out>
+					</div>
+					<div id="res">
+						
+					</div>
 				</div>
 			</c:forEach>
 			<p id="view_more">
