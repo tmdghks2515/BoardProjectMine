@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- jquery cdn -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- bootstrap cdn -->
@@ -17,15 +18,23 @@
 		$("#sub").mouseleave(function(){
 			$("#sub").stop().slideUp(400);
 		})
-		$("#")
+		<%
+			if(session.getAttribute("grade")!=null && ((String)session.getAttribute("grade")).equals("MASTER")){
+		%>
+		$("#main a").eq(1).text("문의내역");
+		<%
+			}
+		%>
 	})
 </script>
 <style>
+
 *{
 	margin:0;
 	padding:0;
 	box-sizing: border-box;
 }
+
 /*메인메뉴 *************************************/
 	nav{
 		height:40px;
@@ -67,6 +76,7 @@
 	color:white;
 	padding-left:50px;
 }
+
 #user img{
 	width:40px;
 	height:40px;
@@ -84,8 +94,8 @@
 	color:white;
 }
 
-
 <%}else{%>
+
 #login{
 	float:right;
 	padding-right: 100px;
@@ -104,7 +114,9 @@
 
 <%}%>
 
+
 /*서브메뉴 **************************************/
+
 #sub{
 	clear:both;
 	background-color: #007cb2;
@@ -134,35 +146,32 @@
 <body>
 	<nav>
 		<ul id="main">
-			<li><a href="<%=request.getContextPath()%>/board/board_list.jsp">게시판</a></li>
+			<li><a href="${pageContext.request.contextPath }/board/board_list.jsp">게시판</a></li>
 			<li><a href="qnaView.do">문의하기</a></li>
 			<li><a href="#">메인메뉴3</a></li>
 			<li><a href="#">메인메뉴4</a></li>
 		</ul>
-		
-<%
-	if(session.getAttribute("login") != null && (boolean)session.getAttribute("login") == true){
-%>
-
+	<c:choose>
+	<c:when test="${sessionScope.login==true }">
 		<div id="user">
 			<div>
 				<small>${sessionScope.name}(${sessionScope.grade}) 님이 로그인 했습니다</small><br>
-				<small><a href="update.do">정보수정</a> | <a href="${pageContext.request.contextPath }/logout.do">로그아웃</a></small>
+				<small><a href="update.do">정보수정</a> | <a href="logout.do">로그아웃</a></small>
 			</div>
 			<img src="${pageContext.request.contextPath }/resource/img/dog.jpg">
 		</div>
-		
-<%}else{%>
-	
-	<div id="login">
-		<small><a href="${pageContext.request.contextPath}/member/login.jsp?url=${pageContext.request.requestURL}<%if(request.getParameter("bNo")!=null){%>&bNo=${requestScope.bNo} <%}%>">로그인</a></small> |
-		<small><a href="<%=request.getContextPath() %>/member/register.jsp">회원가입</a></small>
-	</div>
-<%}%>
+	</c:when>
+	<c:otherwise>
+		<div id="login">
+			<small><a href="${pageContext.request.contextPath}/member/login.jsp">로그인</a></small> |
+			<small><a href="${pageContext.request.contextPath }/member/register.jsp">회원가입</a></small>
+		</div>
+	</c:otherwise>
+	</c:choose>
 
 		<div id="sub">
 			<ul class="sub">
-				<li><a href="<%=request.getContextPath()%>/board/write_board.jsp">게시글 작성</a></li>
+				<li><a href="${pageContext.request.contextPath }/board/write_board.jsp">게시글 작성</a></li>
 				<li><a href="#">서브메뉴</a></li>
 				<li><a href="#">서브메뉴</a></li>
 				<li><a href="#">서브메뉴</a></li>

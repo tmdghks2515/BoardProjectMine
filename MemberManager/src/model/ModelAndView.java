@@ -12,7 +12,6 @@ public class ModelAndView {
 	
 	public ModelAndView() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public String getPage() {
