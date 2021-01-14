@@ -42,6 +42,12 @@ public class HandlerMapping {
 		case "view_more.do":
 			co = new ViewMoreController();
 			break;
+		case "response.do":
+			co = new ResponseController();
+			break;
+		case "read.do":
+			co = new ReadQnAController();
+			break;
 		}
 		
 		

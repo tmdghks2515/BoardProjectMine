@@ -20,7 +20,7 @@ public class QnAViewController implements Controller {
 		String id = (String)request.getSession().getAttribute("id");
 		if(id==null) {
 			try {
-				response.getWriter().append("<script>alert('로그인이 필요한 작업입니다.');history.back();</script>");
+				response.getWriter().append("<script>alert('로그인이 필요한 작업입니다.');location='"+request.getContextPath()+"/member/login.jsp';</script>");
 				return null;
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -28,7 +28,7 @@ public class QnAViewController implements Controller {
 		}
 		ArrayList<QnADTO> li = null;
 		try {
-			li = QnAService.getInstance().selectQnAById(id);
+			li = QnAService.getInstance().selectQnAById(id,1);
 			request.getSession().setAttribute("li", li);
 			view = new ModelAndView(request.getContextPath()+"/qna/qna_view.jsp", true);
 		} catch (Exception e) {

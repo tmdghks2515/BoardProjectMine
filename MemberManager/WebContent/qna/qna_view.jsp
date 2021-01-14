@@ -14,7 +14,7 @@
 		margin-top:100px;
 	}
 	form{
-		width:1200px;
+		width:100%;
 		margin:0 auto;
 	}
 	textarea{
@@ -45,11 +45,10 @@
 	}
 	.slide{
 		display: none;
-		height:150px;
-		padding:50px;
 		background-color: #eeeeee;
+		height:250px;
 	}
-	#qna_list #view_more{
+	#view_more{
 		text-align: center;
 		border:none;
 	}
@@ -59,18 +58,52 @@
 	#view_more a:nth-child(2){
 		display: none;
 	}
+	#qna_content,#qna_response{
+		background-color: #eeeeee;
+		width:50%;
+		float:left;
+		padding:20px;
+		height:100%;
+	}
+	#qna_content{
+		border-right:1px solid gray;
+	}
+	#re_frm{
+		text-align: center;
+	}
 </style>
 <script>
 	$(function(){
+		if(${sessionScope.id == null}){
+			alert("로그인을 해야 합니다.");
+			location="../member/login.jsp";
+		}
+			
 		$("#qna_list a").click(function(e){
 			$(this).parents("p").next().slideToggle(300);
 			e.preventDefault();
+			
+			var index = $("#qna_list a").index($(this)); 
+			if(${sessionScope.grade == 'MASTER'}){
+				$.ajax({
+					data:{'index':index},
+					url:"read.do",
+					method:'get',
+					success:function(d){
+						if(d == 'did'){
+							$("#qna_list a").eq(index).parents("p").children().eq(1).text("읽음");
+						}
+					}
+				})
+			}
 		})
 		
+		var page = ${sessionScope.li.size()/5+(1-(sessionScope.li.size()/5%1))%1};
 		$("#view_more a").click(function(e){
-			
+			page++;
 			e.preventDefault();
 			$.ajax({
+				data:{'page':page},
 				url:"view_more.do",
 				method:'get',
 				success:function(d){
@@ -78,6 +111,7 @@
 				}
 			})
 		})
+		
 	})
 </script>
 </head>
@@ -106,27 +140,48 @@
 			<c:forEach var="qdto" items="${sessionScope.li }">
 				<p>
 					<span><c:out value="${qdto.qNo }"></c:out></span>
-					<span><c:out value="${qdto.status }"></c:out></span>
+					<c:choose>
+						<c:when test="${qdto.status==0 }">
+							<span><c:out value="안읽음"></c:out></span>
+						</c:when>
+						<c:when test="${qdto.status==1 }">
+							<span><c:out value="읽음"></c:out></span>
+						</c:when>
+						<c:otherwise>
+							<span><c:out value="답변완료"></c:out></span>
+						</c:otherwise>
+					</c:choose>
 					<span><c:out value="${qdto.title }"></c:out></span>
 					<span><c:out value="${qdto.writer }"></c:out></span>
 					<span><c:out value="${qdto.wDate }"></c:out></span>
 					<span><a href="#">보기</a></span>
 				</p>
 				<div class="slide">
-					<div id="content">
+					<div id="qna_content">
 						<c:out value="${qdto.content }"></c:out>
 					</div>
-					<div id="res">
-						
+					<div id="qna_response">
+					<c:choose>
+						<c:when test="${sessionScope.grade=='MASTER' && qdto.status <2 }">
+							<form action="response.do" class="form" id="re_frm">
+								<input type="hidden" value="${qdto.qNo }" name="qNo">
+								<textarea name="response" class="form-control" rows="8"></textarea>
+								<button class="btn btn-info">작성</button>
+							</form>
+						</c:when>
+						<c:otherwise>
+							<c:out value="${qdto.response }"></c:out>
+						</c:otherwise>
+					</c:choose>
 					</div>
 				</div>
 			</c:forEach>
-			<p id="view_more">
-				<a href="#">
-					<small class="glyphicon glyphicon-chevron-down">펼치기</small>
-				</a>
-			</p>
 		</div>
+		<p id="view_more">
+			<a href="#">
+				<small class="glyphicon glyphicon-chevron-down">더보기</small>
+			</a>
+		</p>
 	</div>
 </div>
 </body>

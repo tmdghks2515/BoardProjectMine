@@ -24,11 +24,11 @@ public class QnADAO {
 		return instance;
 	}
 
-	public ArrayList<QnADTO> selectQnAById(String id) throws Exception {
+	public ArrayList<QnADTO> selectQnAById(String id, int page) throws Exception {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<QnADTO> li = new ArrayList<>();
-		String sql = "select rownum, qna2.* from(select * from qna where writer like ? order by status,qno desc)qna2 where rownum <= 5";
+		String sql = "select rownum, qna2.* from(select * from qna where writer like ? order by status,qno desc)qna2 where rownum <= 5*"+page;
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
@@ -103,6 +103,39 @@ public class QnADAO {
 			manager.close(pstmt, rs);
 		}
 		return li;
+	}
+
+	public void response(int qNo, String response) {
+		PreparedStatement pstmt = null;
+		String sql = "update qna set response=?,status=2 where qno = ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, response);
+			pstmt.setInt(2, qNo);
+			int count = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			manager.close(pstmt, null);
+		}
+		
+	}
+
+	public void readQnA(int qNo) throws Exception {
+		PreparedStatement pstmt = null;
+		String sql = "update qna set status = 1 where qno=? and status=0";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, qNo);
+			int count = pstmt.executeUpdate();
+			if(count == 0)
+				throw new Exception("이미 읽은 문의");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			manager.close(pstmt, null);
+		}
+		
 	}
 
 	

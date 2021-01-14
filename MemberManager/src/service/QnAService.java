@@ -18,14 +18,12 @@ public class QnAService {
 	}
 	
 
-	public ArrayList<QnADTO> selectQnAById(String id) throws Exception {
+	public ArrayList<QnADTO> selectQnAById(String id,int page) throws Exception {
 		ArrayList<QnADTO> li = null;
 		if(MemberService.getInstance().select(id).getGrade().equals("MASTER")) {
 			id="%";
-			li = QnADAO.getInstance().selectQnAById(id);
-		}else {
-			li = QnADAO.getInstance().selectQnAById(id);
 		}
+		li = QnADAO.getInstance().selectQnAById(id,page);
 		return li;
 	}
 	
@@ -43,6 +41,14 @@ public class QnAService {
 	
 	public ArrayList<QnADTO> searchUnanswered(){
 		return QnADAO.getInstance().searchUnanswered();
+	}
+
+	public void response(int qNo, String response) {
+		QnADAO.getInstance().response(qNo,response);
+	}
+
+	public void readQnA(int qNo) throws Exception {
+		QnADAO.getInstance().readQnA(qNo);
 	}
 	
 	

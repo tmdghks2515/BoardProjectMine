@@ -21,16 +21,20 @@ public class StartBatch implements ServletContextListener {
      * @see ServletContextListener#contextDestroyed(ServletContextEvent)
      */
     public void contextDestroyed(ServletContextEvent sce)  { 
-    	System.out.println("MemberManager End");
-    	js.shutdownScheduler();
+		/*
+		 * System.out.println("MemberManager End"); 
+		 * js.shutdownScheduler();
+		 */
     }
 
 	/**
      * @see ServletContextListener#contextInitialized(ServletContextEvent)
      */
     public void contextInitialized(ServletContextEvent sce)  {
-		js = new CronTriggerMaker("0/5 * * * * ?", SearchNoAnswerList.class);
-		js.createTrigger();
+		/*
+		 * js = new CronTriggerMaker("0/5 * * * * ?", SearchNoAnswerList.class);
+		 * js.createTrigger();
+		 */
     }
 	
 }
