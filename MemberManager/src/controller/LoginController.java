@@ -16,22 +16,15 @@ public class LoginController implements Controller {
 		String id = request.getParameter("id");
 		String pass = request.getParameter("pass");
 		MemberVO vo = MemberService.getInstance().login(id, pass);
-		ModelAndView view = new ModelAndView();
 		if(vo == null) {
 			session.setAttribute("login", false);
-			view.setPage("index.jsp");
-			view.setSendRedirect(true);
 		}else {
 			session.setAttribute("login", true);
 			session.setAttribute("id", id);
 			session.setAttribute("name", vo.getName());
 			session.setAttribute("grade", vo.getGrade());
-			view.setPage("index.jsp");
-			view.setSendRedirect(true);
 		}
-		return view;
+		return new ModelAndView(request.getParameter("url"), true);
 	}
 
-	
-	
 }

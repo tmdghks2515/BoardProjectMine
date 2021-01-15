@@ -50,6 +50,10 @@ public class QnAService {
 	public void readQnA(int qNo) throws Exception {
 		QnADAO.getInstance().readQnA(qNo);
 	}
+
+	public ArrayList<QnADTO> selectQnAByPage(int page) {
+		return QnADAO.getInstance().selectQnAByPage(page);
+	}
 	
 	
 }

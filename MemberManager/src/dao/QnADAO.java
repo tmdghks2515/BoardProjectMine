@@ -138,5 +138,24 @@ public class QnADAO {
 		
 	}
 
+	public ArrayList<QnADTO> selectQnAByPage(int page) {
+		ArrayList<QnADTO> li = new ArrayList<QnADTO>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "select * from (select ceil(rownum/5) as page,qna2.* from (select * from qna order by status,qno desc)qna2) where page = "+page;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				li.add(new QnADTO(rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getInt(7), rs.getString(8)));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			manager.close(pstmt, rs);
+		}
+		return li;
+	}
+
 	
 }

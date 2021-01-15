@@ -71,12 +71,15 @@
 	#re_frm{
 		text-align: center;
 	}
+	#paging{
+		text-align: center;
+	}
 </style>
 <script>
 	$(function(){
 		if(${sessionScope.id == null}){
 			alert("로그인을 해야 합니다.");
-			location="../member/login.jsp";
+			location="../member/login.jsp?url=${pageContext.request.requestURL}";
 		}
 			
 		$("#qna_list a").click(function(e){
@@ -181,11 +184,24 @@
 				</div>
 			</c:forEach>
 		</div>
-		<p id="view_more">
-			<a href="#">
-				<small class="glyphicon glyphicon-chevron-down">더보기</small>
-			</a>
-		</p>
+		<c:choose>
+		<c:when test="${sessionScope.grade != 'MASTER' }">
+			<p id="view_more">
+				<a href="#">
+					<small class="glyphicon glyphicon-chevron-down">더보기</small>
+				</a>
+			</p>
+		</c:when>
+		<c:otherwise>
+			<p id="paging">
+				<c:if test="${!sessionScope.pagingVO.firstGroup }"><a href="qnaView.do?page=${sessionScope.pagingVO.firstPageOfGroup - 1 }">◁</a></c:if>
+				<c:forEach var="i" begin="${sessionScope.pagingVO.firstPageOfGroup }" end="${sessionScope.pagingVO.lastPageOfGroup }">
+					<a href="qnaView.do?page=${i }"><c:out value="${i }"></c:out></a>
+				</c:forEach>
+				<c:if test="${!sessionScope.pagingVO.lastGroup }"><a href="qnaView.do?page=${sessionScope.pagingVO.lastPageOfGroup+1 }">▶</a></c:if>
+			</p>
+		</c:otherwise>
+		</c:choose>
 	</div>
 </div>
 </body>

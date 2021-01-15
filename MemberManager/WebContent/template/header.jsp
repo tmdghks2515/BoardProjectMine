@@ -156,14 +156,14 @@
 		<div id="user">
 			<div>
 				<small>${sessionScope.name}(${sessionScope.grade}) 님이 로그인 했습니다</small><br>
-				<small><a href="update.do">정보수정</a> | <a href="logout.do">로그아웃</a></small>
+				<small><a href="update.do">정보수정</a> | <a href="logout.do?url=${pageContext.request.requestURL}">로그아웃</a></small>
 			</div>
 			<img src="${pageContext.request.contextPath }/resource/img/dog.jpg">
 		</div>
 	</c:when>
 	<c:otherwise>
 		<div id="login">
-			<small><a href="${pageContext.request.contextPath}/member/login.jsp">로그인</a></small> |
+			<small><a href="${pageContext.request.contextPath}/member/login.jsp?url=${pageContext.request.requestURL}">로그인</a></small> |
 			<small><a href="${pageContext.request.contextPath }/member/register.jsp">회원가입</a></small>
 		</div>
 	</c:otherwise>

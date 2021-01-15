@@ -14,7 +14,7 @@ public class LogoutController implements Controller {
 	public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
 		session.invalidate();
-		return new ModelAndView(request.getContextPath()+"/index.jsp",true);
+		return new ModelAndView(request.getParameter("url"),true);
 	}
 
 }

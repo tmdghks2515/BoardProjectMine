@@ -2,7 +2,7 @@ package vo;
 
 public class PagingVO {
 	private int boardTotal;//전체 게시글 갯수
-	private final int boardPerPage = 7;//한 페이지당  출력할 게시글 개수
+	private final int boardPerPage = 5;//한 페이지당  출력할 게시글 개수
 	private final int pagePerGroup = 5; //게시판 하단에 나타낼 페이지 번호 개수
 	private int currentPage;//현재 페이지번호
 	
