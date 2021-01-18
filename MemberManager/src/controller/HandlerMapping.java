@@ -1,5 +1,21 @@
 package controller;
 
+import controller_board.BoardListController;
+import controller_board.BoardViewController;
+import controller_board.BoardWriteController;
+import controller_board.BoardWriteView;
+import controller_member.LoginController;
+import controller_member.LogoutController;
+import controller_member.RegisterController;
+import controller_member.UpdateActionController;
+import controller_member.UpdateViewController;
+import controller_member.idCheckController;
+import controller_qna.AskController;
+import controller_qna.QnAViewController;
+import controller_qna.ReadQnAController;
+import controller_qna.ResponseController;
+import controller_qna.ViewMoreController;
+
 public class HandlerMapping {
 	private static HandlerMapping instance = new HandlerMapping();
 
@@ -59,6 +75,15 @@ public class HandlerMapping {
 			break;
 		case "boardView.do":
 			co = new BoardViewController();
+			break;
+		case "commentWrite.do":
+			co = new commentWriteController();
+			break;
+		case "boardLike.do":
+			co = new BoardLikeController();
+			break;
+		case "commentLike.do":
+			co = new CommentLikeController();
 			break;
 		}
 		

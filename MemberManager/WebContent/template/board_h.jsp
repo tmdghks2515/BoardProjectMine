@@ -4,7 +4,7 @@
 <style>
 	#bh{
 		text-align: center;
-		font-family: 'Black Han Sans', 'sans-serif';
+		font-family: 'Noto Sans Black';
 		margin:30px 0;
 		color:#007fff;
 		position:absolute;
@@ -17,5 +17,5 @@
 	}
 </style>
 <body>
-	<h1 id="bh"><a href="<%=request.getContextPath() %>/index.jsp">Hiver</a> 게시판</h1>
+	<h1 id="bh"><a href="${pageContext.request.contextPath }/index.jsp">파이버</a> 게시판</h1>
 </body>

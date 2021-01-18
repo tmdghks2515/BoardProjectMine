@@ -1,4 +1,7 @@
 package dto;
+
+import service.MemberService;
+
 public class BoardDTO {
 	private int bNo;
 	private String bDate;
@@ -88,4 +91,10 @@ public class BoardDTO {
 				+ content + ", bLike=" + bLike + ", bHate=" + bHate + ", title=" + title + "]";
 	}
 	
+	public String getName() {
+		return MemberService.getInstance().select(writer).getName();
+	}
+	public String getHiddenId() {
+		return writer.substring(0, 2)+"***"; 
+	}
 }

@@ -16,34 +16,7 @@
 <title>게시글 보기</title>
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<%!
-	public String getDateDiff(String date){
-		String result = "";
-		Date today = new Date();
-		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		try{
-			Date cmt_date = format1.parse(date);
-			long diff = today.getTime() - cmt_date.getTime();
-			long sec = diff/1000;
-			if(sec < 60)
-				result=sec+"초 전";
-			else if(sec < 60*60)
-				result=sec/60+"분 전";
-			else if(sec < 60*60*24)
-				result=sec/(60*60)+"시간 전";
-			else if(sec < 60*60*24*30)
-				result=sec/(60*60*24)+"일 전";
-			else if(sec < 60*60*24*30*365)
-				result=sec/(60*60*24*30)+"달 전";
-			else
-				result=sec/(60*60*24*30*365)+"년 전";
 
-		}catch(Exception e){
-			result = "오류";
-		}
-		return result;
-	}
-%>
 <style>
 	#container{
 		width:100%;
@@ -151,7 +124,7 @@
 			}
 				
 			var comment = $("#cmt_content").val();
-			var writer = "${sessionScope.bdto.writer}";
+			var writer = "${sessionScope.id}";
 			var bNo = ${sessionScope.bdto.bNo};
 			$.ajax({
 				url:"commentWrite.do",
@@ -172,7 +145,7 @@
 				var index = $(this).index()%2;
 				var cNo = $(this).next().val();
 				$.ajax({
-					url:"process/clike_process.jsp",
+					url:"commentLike.do",
 					data:{"cNo":cNo,"index":index},
 					method:'get',
 					success:function(d){
@@ -181,6 +154,22 @@
 				})
 			}
 		})
+		
+		$("#btns a").click(function(){
+			var index = $("#btns a").index($(this));
+			$.ajax({
+				url:"boardLike.do",
+				data:{"index":index},
+				method:'get',
+				success:function(d){
+					if(d!=""){
+						alert(d);
+					}
+					location.reload();
+				}
+			})			
+		})
+			
 	})
 </script>
 
@@ -195,7 +184,7 @@
 					제목: ${sessionScope.bdto.title }
 				</p>
 				<p id="info">
-					${sessionScope.name } | ${sessionScope.bdto.bDate }
+					${sessionScope.bdto.getName() }(${sessionScope.bdto.getHiddenId() }) | ${sessionScope.bdto.bDate }
 					<span>
 						view ${sessionScope.bdto.bCount } | like ${sessionScope.bdto.bLike } | hate ${sessionScope.bdto.bHate }
 					</span>
@@ -205,8 +194,8 @@
 					${sessionScope.bdto.content }
 				</div>
 				<div id="btns">
-					<span><a href="process/like_hate_process.jsp?flag=1&id=${sessionScope.id }&bNo=${sessionScope.bdto.bNo}"><img src="${pageContext.request.contextPath }/resource/img/like.png"></a>좋아요</span>
-					<span><a href="process/like_hate_process.jsp?flag=-1&id=${sessionScope.id }&bNo=${sessionScope.bdto.bNo}"><img src="${pageContext.request.contextPath }/resource/img/hate.png"></a>싫어요</span>
+					<span><a href="#"><img src="/resource/img/like.png"></a>좋아요</span>
+					<span><a href="#"><img src="/resource/img/hate.png"></a>싫어요</span>
 				</div>
 				<hr>
 			</div>
@@ -218,7 +207,7 @@
 					하고 댓글 작성하기
 				</c:when>
 				<c:otherwise>
-					${sessionScope.name }(${sessionScope.idHidden})		
+					${sessionScope.name }(${sessionScope.hiddenId})		
 				</c:otherwise>
 				</c:choose>
 				</p>
@@ -237,13 +226,13 @@
 				<c:forEach var="cdto" items="${sessionScope.cli }">
 				<div class="cmt">
 					<p>
-						(${cdto.writer })
-						<small>${cdto.cDate}</small>
+						${cdto.getName() }(${cdto.getHiddenId() })
+						<small>${cdto.getDateDiff()}</small>
 					</p>
 					<p>${cdto.content }</p>
 					<p class="clike">
-						<a href="#"><span class="glyphicon glyphicon-thumbs-up">좋아요</span></a><input type="hidden" value="${cdto.cLike }"> <span id="like_count">${cdto.cLike }</span> 
-						<a href="#"><span class="glyphicon glyphicon-thumbs-down">싫어요</span></a><input type="hidden" value="${cdto.cHate }"> <span id="hate_count">${cdto.cHate }</span>
+						<a href="#"><span class="glyphicon glyphicon-thumbs-up">좋아요</span></a><input type="hidden" value="${cdto.cNo }"> <span id="like_count">${cdto.cLike }</span> 
+						<a href="#"><span class="glyphicon glyphicon-thumbs-down">싫어요</span></a><input type="hidden" value="${cdto.cNo }"> <span id="hate_count">${cdto.cHate }</span>
 					</p>
 				</div>
 				<hr>

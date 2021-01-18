@@ -10,6 +10,7 @@
 <!-- 폰트 Black Han Sans  	font-family: 'Black Han Sans', 'sans-serif';-->
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
+
 <script>
 	$(function(){
 		$("#main").mouseenter(function(){
@@ -28,8 +29,12 @@
 	})
 </script>
 <style>
-
+@font-face{
+	font-family: 'Noto Sans Bold';
+	src: url(${pageContext.request.contextPath}/resource/font/NotoSansKR-Bold.otf) format("truetype");
+}
 *{
+	font-family: 'Noto Sans Bold';
 	margin:0;
 	padding:0;
 	box-sizing: border-box;

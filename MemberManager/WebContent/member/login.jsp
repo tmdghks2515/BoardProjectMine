@@ -13,7 +13,7 @@
 #container h1{
 	text-align: center;
 	font-weight: bold;
-	font-family: 'Black Han Sans', 'sans-serif';
+	font-family: 'Noto Sans Black';
 	color:#0080ff;
 }
 h1 a:link, h1 a:visited{

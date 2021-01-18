@@ -17,5 +17,5 @@
 	}
 </style>
 <body>
-	<h1 id="bh"><a href="<%=request.getContextPath() %>/index.jsp">Hiver</a> 문의하기</h1>
+	<h1 id="bh"><a href="${pageContext.request.contextPath }/index.jsp">파이버</a> 문의하기</h1>
 </body>

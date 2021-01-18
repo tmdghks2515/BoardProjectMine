@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<game>
+	<pc>
+		<kartrider>
+			<gno>1</gno>
+			<corp>nexon</corp>
+			<year>2001</year>
+			<grade>2</grade>
+		</kartrider>
+		<lol>
+			<gno>2</gno>
+			<corp>riot</corp>
+			<year>2010</year>
+			<grade>1</grade>
+		</lol>
+		<battleground>
+			<gno>3</gno>
+			<corp>pubg</corp>
+			<year>2017</year>
+			<grade>1.5</grade>
+		</battleground>
+	</pc>
+	<mobile>
+		<wildlift>
+			<gno>4</gno>
+			<corp>tencent</corp>
+			<year>2020</year>
+			<grade>2</grade>
+		</wildlift>
+		<kartmobile>
+			<gno>5</gno>
+			<corp>mola</corp>
+			<year>2019</year>
+			<grade>2.5</grade>
+		</kartmobile>
+	</mobile>
+</game>

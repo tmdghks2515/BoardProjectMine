@@ -50,7 +50,8 @@
 	String id = "방문객";
 	if(session.getAttribute("login") != null && (boolean)session.getAttribute("login"))
 		id = (String)session.getAttribute("id");
-	String id_hidden = id.substring(0, 3) + "***";
+	String id_hidden = id;
+	id_hidden = id_hidden.substring(0, 3) + "***";
 %>
 <style>
 	#container{

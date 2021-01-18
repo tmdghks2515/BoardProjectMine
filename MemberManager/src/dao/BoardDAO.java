@@ -156,6 +156,7 @@ public class BoardDAO {
 			int count = pstmt.executeUpdate();
 			if(count != 1)
 				throw new Exception("좋아요 누르기 실패");
+			conn.commit();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -167,9 +168,9 @@ public class BoardDAO {
 
 	public void boardLike(int bNo, int flag) throws Exception {
 		String sql = "";
-		if(flag == 1)
+		if(flag == 0)
 			sql = "update board set blike = blike+1 where bno ="+bNo;
-		else if(flag == -1)
+		else if(flag == 1)
 			sql = "update board set bhate = bhate+1 where bno ="+bNo;
 		PreparedStatement pstmt = null;
 		try {

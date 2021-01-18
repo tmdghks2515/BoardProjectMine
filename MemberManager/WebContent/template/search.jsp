@@ -4,9 +4,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
 <style>
+@font-face{
+	font-family:'Noto Sans Black';
+	src: url(${pageContext.request.contextPath}/resource/font/NotoSansKR-Black.otf) format("truetype");
+}
 h1{
 	text-align: center;
-	font-family: 'Black Han Sans', 'sans-serif';
+	font-family:'Noto Sans Black';
 	font-weight: bold;
 }
 h1 a:link , h1 a:visited{
@@ -53,7 +57,7 @@ h1 a:link , h1 a:visited{
 }
 </style>
 <body>
-	<h1><a href="#">Hiver</a></h1>
+	<h1><a href="#">파이버</a></h1>
 	<div id="search">
 		<form action="#">
 			<label>
