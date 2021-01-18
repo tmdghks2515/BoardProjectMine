@@ -107,7 +107,7 @@ public class QnADAO {
 
 	public void response(int qNo, String response) {
 		PreparedStatement pstmt = null;
-		String sql = "update qna set response=?,status=2 where qno = ?";
+		String sql = "update qna set response=response || ?,status=2 where qno = ?";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, response);

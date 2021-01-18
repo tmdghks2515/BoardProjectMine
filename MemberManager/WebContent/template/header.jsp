@@ -146,8 +146,8 @@
 <body>
 	<nav>
 		<ul id="main">
-			<li><a href="${pageContext.request.contextPath }/board/board_list.jsp">게시판</a></li>
-			<li><a href="qnaView.do">문의하기</a></li>
+			<li><a href="board_list.do">게시판</a></li>
+			<li><a href="qnaView.do?url=${pageContext.request.contextPath}/qna/qna_view.jsp">문의하기</a></li>
 			<li><a href="#">메인메뉴3</a></li>
 			<li><a href="#">메인메뉴4</a></li>
 		</ul>
@@ -171,7 +171,7 @@
 
 		<div id="sub">
 			<ul class="sub">
-				<li><a href="${pageContext.request.contextPath }/board/write_board.jsp">게시글 작성</a></li>
+				<li><a href="${pageContext.request.contextPath }/boardWriteView.do">게시글 작성</a></li>
 				<li><a href="#">서브메뉴</a></li>
 				<li><a href="#">서브메뉴</a></li>
 				<li><a href="#">서브메뉴</a></li>

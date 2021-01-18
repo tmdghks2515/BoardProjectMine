@@ -1,6 +1,7 @@
 package controller;
 
 
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,7 +12,7 @@ public class ResponseController implements Controller {
 
 	@Override
 	public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) {
-		QnAService.getInstance().response(Integer.parseInt(request.getParameter("qNo")),request.getParameter("response"));
+		QnAService.getInstance().response(Integer.parseInt(request.getParameter("qNo"))," /n "+request.getParameter("response"));
 		return new ModelAndView("qnaView.do", true);
 	}
 

@@ -68,7 +68,7 @@
 	#qna_content{
 		border-right:1px solid gray;
 	}
-	#re_frm{
+	#re_frm,#re_frm2{
 		text-align: center;
 	}
 	#paging{
@@ -177,7 +177,13 @@
 							</form>
 						</c:when>
 						<c:otherwise>
-							<c:out value="${qdto.response }"></c:out>
+							<c:out value="${qdto.response }"></c:out><br>
+							<hr>
+							<form action="response.do" class="form" id="re_frm2">
+								<input type="hidden" value="${qdto.qNo }" name="qNo">
+								<textarea name="response" class="form-control" rows="4"></textarea>
+								<button class="btn btn-info">작성</button>
+							</form>
 						</c:otherwise>
 					</c:choose>
 					</div>

@@ -48,6 +48,18 @@ public class HandlerMapping {
 		case "read.do":
 			co = new ReadQnAController();
 			break;
+		case "board_list.do":
+			co = new BoardListController();
+			break;
+		case "boardWriteView.do":
+			co = new BoardWriteView();
+			break;
+		case "boardWrite.do":
+			co = new BoardWriteController();
+			break;
+		case "boardView.do":
+			co = new BoardViewController();
+			break;
 		}
 		
 		

@@ -19,7 +19,7 @@ public class QnAViewController implements Controller {
 		String id = (String)request.getSession().getAttribute("id");
 		if(id==null) {
 			try {
-				response.getWriter().append("<script>alert('로그인이 필요한 작업입니다.');location='"+request.getContextPath()+"/member/login.jsp';</script>");
+				response.getWriter().append("<script>alert('로그인이 필요한 작업입니다.');location.href='"+request.getContextPath()+"/member/login.jsp?url="+request.getParameter("url")+"';</script>");
 				return null;
 			} catch (IOException e) {
 				e.printStackTrace();

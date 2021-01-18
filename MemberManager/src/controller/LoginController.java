@@ -24,7 +24,13 @@ public class LoginController implements Controller {
 			session.setAttribute("name", vo.getName());
 			session.setAttribute("grade", vo.getGrade());
 		}
-		return new ModelAndView(request.getParameter("url"), true);
+		ModelAndView view = new ModelAndView();
+		view.setSendRedirect(true);
+		if(request.getParameter("url")==null)
+			view.setPage("../index.jsp");
+		else
+			view.setPage(request.getParameter("url")+"?bNo="+request.getParameter("bNo"));
+		return view;
 	}
 
 }
