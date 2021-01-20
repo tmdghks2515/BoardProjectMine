@@ -46,36 +46,44 @@
 		margin-top:-30px;
 		padding:5px;
 	}
-	.row:nth-child(4){
+	.row:nth-child(5){
 		padding-top:0;		
 	}
-	.row:nth-child(4) div{
+	.row:nth-child(5) div{
 		text-align: right;
+	}
+	.row:nth-child(4){
+		font-size: 12px;
+	}
+	.row:nth-child(4) input{
+		display: inline-block;
+		width:200px;
+	}
+	#plus,#minus{
+		padding:1px 6px;
+		margin:3px;
 	}
 </style>
 <script>
 	$(function(){
+		var i = 1;
+ 		$("#plus").click(function(){
+ 			if(i==5) return;
+			i++;
+ 			$("#files").append("<p><input type='file' name='file"+i+"'></p>");
+ 		})
+ 		
+  		$("#minus").click(function(){
+  			if(i>1) {
+  				i--;
+	  			$("#files p").last().remove();
+  			}
+ 		})
+		
 		$("textarea").keydown(function(){
 			$(this).next().children().text($(this).val().length+"/500");
 		})
 		
-		$("#btn").click(function(){
-			var url = "boardWrite.do";
-			var writer="${sessionScope.id}";
-			var title = $("#title").val();
-			var content = $("#content").val();
-			$.ajax({
-				url:url,
-				method:'get',
-				data:{"writer":writer,"title":title,"content":content},
-				success:function(d){
-					location.href = "boardView.do?bNo="+d;				
-				},
-				error:function(d){
-					alert(d);
-				}
-			})
-		})
 	})
 </script>
 </head>
@@ -84,9 +92,13 @@
 	<div id="container">
 		<h1><a href="${pageContext.request.contextPath }/index.jsp">Hiver</a> 게시판</h1>
 		<div class="container">
+			<form action="boardWrite.do"  enctype="multipart/form-data" method="post" id="frm">
 				<div class="row">
 					<div class="col-xs-1 col-xs-offset-2">작성자: </div>
-					<div class="col-xs-6">${sessionScope.id }<input type="hidden" name="writer" value="${sessionScope.id }"></div>
+					<div class="col-xs-6">
+						${sessionScope.id }
+						<input type="hidden" name="writer" value="${sessionScope.id}">
+					</div>
 				</div>
 				<div class="row">
 					<div class="col-xs-1 col-xs-offset-2">제목: </div>
@@ -100,10 +112,19 @@
 					</div>
 				</div>
 				<div class="row">
+					<div class="col-xs-1 col-xs-offset-2">첨부파일: </div>
+					<div class="col-xs-8" id="files">
+						<p>
+							<input type="file" name="file1"> <button type="button" id="plus">+</button> <button type="button" id="minus">-</button>
+						</p>	
+					</div>
+				</div>
+				<div class="row">
 					<div class="col-xs-6 col-xs-offset-3">
 						<button id="btn" class="btn btn-info">작성하기</button>
 					</div>
 				</div>
+			</form>
 		</div>
 	</div>
 </body>

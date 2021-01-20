@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import dao.BoardDAO;
 import dto.BoardDTO;
 import dto.CommentDTO;
+import dto.FileDTO;
 import dto.QnADTO;
 
 public class BoardService {
@@ -66,6 +67,14 @@ public class BoardService {
 	
 	public int getBoardTotal() {
 		return BoardDAO.getInstance().getBoardTotal();
+	}
+
+	public void insertFile(ArrayList<FileDTO> fList) {
+		BoardDAO.getInstance().insertFile(fList);
+	}
+
+	public ArrayList<FileDTO> selectFiles(int bNo) {
+		return BoardDAO.getInstance().selelctFiles(bNo);
 	}
 
 }

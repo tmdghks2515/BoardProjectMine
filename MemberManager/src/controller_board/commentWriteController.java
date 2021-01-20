@@ -1,10 +1,11 @@
-package controller;
+package controller_board;
 
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import controller.Controller;
 import dto.CommentDTO;
 import model.ModelAndView;
 import service.BoardService;

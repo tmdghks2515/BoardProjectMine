@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import config.DBManager;
 import dto.BoardDTO;
 import dto.CommentDTO;
+import dto.FileDTO;
 import dto.QnADTO;
 
 public class BoardDAO {
@@ -314,7 +315,42 @@ public class BoardDAO {
 		}
 	}
 
+	public void insertFile(ArrayList<FileDTO> fList) {
+		String sql = "insert into board_file_list values(?,?,?)";
+		PreparedStatement pstmt = null;
+		try {
+			for(FileDTO fdto : fList) {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, fdto.getbNo());
+				pstmt.setString(2, fdto.getWriter());
+				pstmt.setString(3, fdto.getfileName());
+				pstmt.executeQuery();
+				conn.commit();
+				manager.close(pstmt, null);
+				pstmt = null;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
 
+	public ArrayList<FileDTO> selelctFiles(int bNo) {
+		ArrayList<FileDTO> fList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "select * from board_file_list where bno = "+bNo;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				fList.add(new FileDTO(rs.getString(2), rs.getInt(1), rs.getString(3)));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return fList;
+	}
 	
 
 

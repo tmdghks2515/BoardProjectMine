@@ -31,7 +31,7 @@
 <style>
 @font-face{
 	font-family: 'Noto Sans Bold';
-	src: url(${pageContext.request.contextPath}/resource/font/NotoSansKR-Bold.otf) format("truetype");
+	src: url(${pageContext.request.contextPath}/resource/font/NotoSansKR-Medium.otf) format("truetype");
 }
 *{
 	font-family: 'Noto Sans Bold';

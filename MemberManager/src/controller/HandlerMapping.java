@@ -1,9 +1,12 @@
 package controller;
 
+import controller_board.BoardLikeController;
 import controller_board.BoardListController;
 import controller_board.BoardViewController;
 import controller_board.BoardWriteController;
 import controller_board.BoardWriteView;
+import controller_board.CommentLikeController;
+import controller_board.commentWriteController;
 import controller_member.LoginController;
 import controller_member.LogoutController;
 import controller_member.RegisterController;
@@ -71,7 +74,7 @@ public class HandlerMapping {
 			co = new BoardWriteView();
 			break;
 		case "boardWrite.do":
-			co = new BoardWriteController();
+			co = new UploadController();
 			break;
 		case "boardView.do":
 			co = new BoardViewController();
@@ -84,6 +87,9 @@ public class HandlerMapping {
 			break;
 		case "commentLike.do":
 			co = new CommentLikeController();
+			break;
+		case "uploadPractice.do":
+			co = new UploadController();
 			break;
 		}
 		

@@ -193,6 +193,12 @@
 				<div id="content">
 					${sessionScope.bdto.content }
 				</div>
+				<c:if test="${sessionScope.fList!=null && sessionScope.fList.size() > 0}">
+					첨부파일 : <br>
+					<c:forEach var="fdto" items="${sessionScope.fList}">
+						${fdto.fileName} | <a href="filedownload.jsp?fileName=${fdto.fileName }&writer=${fdto.writer}">다운로드</a><br>
+					</c:forEach>
+				</c:if>
 				<div id="btns">
 					<span><a href="#"><img src="/resource/img/like.png"></a>좋아요</span>
 					<span><a href="#"><img src="/resource/img/hate.png"></a>싫어요</span>

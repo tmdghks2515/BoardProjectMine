@@ -11,11 +11,12 @@
 		width:100%;
 	}
 	#bh>a:link, #bh>a:visited{
+		font-family: 'Black Han Sans', 'sans-serif';
 		font-weight: bold;
 		text-decoration:none;
 		color:#007fff;
 	}
 </style>
 <body>
-	<h1 id="bh"><a href="${pageContext.request.contextPath }/index.jsp">파이버</a> 문의하기</h1>
+	<h1 id="bh"><a href="${pageContext.request.contextPath }/index.jsp">HIVER</a> 문의하기</h1>
 </body>

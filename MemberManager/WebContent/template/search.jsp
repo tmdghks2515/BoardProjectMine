@@ -10,10 +10,11 @@
 }
 h1{
 	text-align: center;
-	font-family:'Noto Sans Black';
+	font-family:'Black Han Sans';
 	font-weight: bold;
 }
 h1 a:link , h1 a:visited{
+	font-family:'Black Han Sans';
 	text-decoration: none;
 	color:#007fff;
 }
@@ -57,7 +58,7 @@ h1 a:link , h1 a:visited{
 }
 </style>
 <body>
-	<h1><a href="#">파이버</a></h1>
+	<h1><a href="#">HIVER</a></h1>
 	<div id="search">
 		<form action="#">
 			<label>

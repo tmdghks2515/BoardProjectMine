@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import controller.Controller;
 import dto.BoardDTO;
 import dto.CommentDTO;
+import dto.FileDTO;
 import model.ModelAndView;
 import service.BoardService;
 
@@ -23,10 +24,13 @@ public class BoardViewController implements Controller {
 			session.setAttribute("bdto", bdto);
 			ArrayList<CommentDTO> cli = BoardService.getInstance().selectAllComment(bNo);
 			session.setAttribute("cli", cli);
+			ArrayList<FileDTO> fList = BoardService.getInstance().selectFiles(bNo);
+			if(fList.size() > 0)
+				session.setAttribute("fList", fList);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return new ModelAndView(request.getContextPath()+"/board/board_view.jsp",false);
+		return new ModelAndView("/board/board_view.jsp",false);
 	}
 
 }

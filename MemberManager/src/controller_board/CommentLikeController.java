@@ -1,9 +1,10 @@
-package controller;
+package controller_board;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import controller.Controller;
 import model.ModelAndView;
 import service.BoardService;
 
