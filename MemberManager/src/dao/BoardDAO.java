@@ -323,7 +323,7 @@ public class BoardDAO {
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, fdto.getbNo());
 				pstmt.setString(2, fdto.getWriter());
-				pstmt.setString(3, fdto.getfileName());
+				pstmt.setString(3, fdto.getPath());
 				pstmt.executeQuery();
 				conn.commit();
 				manager.close(pstmt, null);
@@ -350,6 +350,36 @@ public class BoardDAO {
 			e.printStackTrace();
 		}
 		return fList;
+	}
+
+	public void deleteBoard(int bNo) {
+		PreparedStatement pstmt = null;
+		String sql = "delete from board where bno = "+bNo;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.executeUpdate();
+			conn.commit();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			manager.close(pstmt, null);
+		}
+		
+	}
+
+	public void deleteFiles(int bNo) {
+		PreparedStatement pstmt = null;
+		String sql = "delete from board_file_list where bNo="+bNo;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.executeUpdate();
+			conn.commit();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			manager.close(pstmt, null);
+		}
+		
 	}
 	
 

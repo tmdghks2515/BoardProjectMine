@@ -6,6 +6,7 @@ import controller_board.BoardViewController;
 import controller_board.BoardWriteController;
 import controller_board.BoardWriteView;
 import controller_board.CommentLikeController;
+import controller_board.UploadController;
 import controller_board.commentWriteController;
 import controller_member.LoginController;
 import controller_member.LogoutController;
@@ -90,6 +91,12 @@ public class HandlerMapping {
 			break;
 		case "uploadPractice.do":
 			co = new UploadController();
+			break;
+		case "imgLoad.do":
+			co = new imgLoadController();
+			break;
+		case "deleteBoard.do":
+			co = new DeleteBoardController();
 			break;
 		}
 		

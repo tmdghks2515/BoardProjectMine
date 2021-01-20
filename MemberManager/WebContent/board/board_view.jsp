@@ -109,6 +109,9 @@
 	#btns img:hover{
 		box-shadow: 0 0 3px black;
 	}
+	.fImg{
+		width:100px;
+	}
 </style>
 <script>
 	$(function(){
@@ -149,7 +152,17 @@
 					data:{"cNo":cNo,"index":index},
 					method:'get',
 					success:function(d){
-						location.reload();
+						var json = JSON.parse(d);
+						var txt = "<p id='cmt_h'><span>전체댓글: ${sessionScope.cli.size() }개</span></p>";
+						var ja = json.result;
+						for(i=0;i<ja.length;i++){
+							txt += "<div class='cmt'><p>"+ja[i].name+"("+ja[i].hiddenId+")<small>"+ja[i].dateDiff+"</small></p>"
+									+"<p>"+ja[i].content+"</p><p class='clike'><a href='#'><span" 
+									+" class='glyphicon glyphicon-thumbs-up'>좋아요</span></a><input type='hidden' value='"+ja[i].cNo+"'>"
+									+" <span id='like_count'>"+ja[i].cLike+"</span><a href='#'><span class='glyphicon glyphicon-thumbs-down'>"
+									+"싫어요</span></a><input type='hidden' value='"+ja[i].cNo+"'>"
+									+" <span id='hate_count'>"+ja[i].cHate+"</span></p></div><hr>"
+						}
 					}
 				})
 			}
@@ -169,7 +182,11 @@
 				}
 			})			
 		})
-			
+		
+		
+		$("#btn_delete").click(function(){
+			location.href="deleteBoard.do?bNo=${sessionScope.bdto.bNo}";
+		})
 	})
 </script>
 
@@ -193,11 +210,21 @@
 				<div id="content">
 					${sessionScope.bdto.content }
 				</div>
+				
 				<c:if test="${sessionScope.fList!=null && sessionScope.fList.size() > 0}">
 					첨부파일 : <br>
 					<c:forEach var="fdto" items="${sessionScope.fList}">
 						${fdto.fileName} | <a href="filedownload.jsp?fileName=${fdto.fileName }&writer=${fdto.writer}">다운로드</a><br>
+						<c:if test="${fdto.type == 'image'}">
+							<a href="filedownload.jsp?fileName=${fdto.fileName }&writer=${fdto.writer}">
+								<img src="filedownload.jsp?fileName=${fdto.fileName }&writer=${fdto.writer}" class="fImg">
+							</a>
+						</c:if>
 					</c:forEach>
+				</c:if><br>
+				<c:if test="${sessionScope.id == sessionScope.bdto.writer }">
+					<button type="button" id="btn_update">수정</button>
+					<button type="button" id="btn_delete">삭제</button>
 				</c:if>
 				<div id="btns">
 					<span><a href="#"><img src="/resource/img/like.png"></a>좋아요</span>

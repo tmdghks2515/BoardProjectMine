@@ -8,17 +8,15 @@
 	String fileName = request.getParameter("fileName");
 	String writer = request.getParameter("writer");
 	//다운로드할 파일 전체경로
-	String path = "c:\\tomcat\\webapps\\MemberManager\\upload\\"+writer+"\\"+fileName;
-	System.out.println("다운로드할 전체경로:"+path);
+	String path = "C:\\UploadedFiles\\"+writer+"\\"+fileName;
 	File file = new File(path);
 	FileInputStream fis = new FileInputStream(file);
 	String encodingName = URLEncoder.encode(path,"utf-8");
 	
 	//다운로드시 나타낼 기본파일명
 	response.setHeader("Content-Disposition", "attachment;filename="+fileName);
-	response.setHeader("Content-Transfer-Encoding", "utf-8");
+	response.setHeader("Content-Transfer-Encoding", "binary");
 	response.setContentLengthLong(file.length());
-	
 	//사용자에게 파일을 전송하는 부분
 	BufferedOutputStream bos = new BufferedOutputStream(response.getOutputStream());
 	//버퍼생성

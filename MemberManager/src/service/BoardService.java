@@ -77,4 +77,12 @@ public class BoardService {
 		return BoardDAO.getInstance().selelctFiles(bNo);
 	}
 
+	public void deleteBoard(int bNo) {
+		BoardDAO.getInstance().deleteBoard(bNo);
+	}
+
+	public void deleteFiles(int bNo) {
+		BoardDAO.getInstance().deleteFiles(bNo);
+	}
+
 }

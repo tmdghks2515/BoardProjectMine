@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import controller.Controller;
 import dto.CommentDTO;
 import model.ModelAndView;
@@ -22,11 +25,20 @@ public class commentWriteController implements Controller {
 			BoardService.getInstance().insertComment(cdto);
 			ArrayList<CommentDTO> cli =  BoardService.getInstance().selectAllComment(bNo);
 			request.getSession().setAttribute("cli", cli);
+			JSONObject jo = new JSONObject();
+			JSONArray ja = new JSONArray();
+			for(CommentDTO dto : cli) {
+				JSONObject temp = new JSONObject();
+				temp.put("cdto", dto);
+				ja.put(temp);
+			}
+			jo.put("result", ja);
+			response.getWriter().write(jo.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		return new ModelAndView("/board/board_view.jsp", true);
+		return null;
 	}
 
 }
